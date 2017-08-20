@@ -35356,11 +35356,6 @@ function ViewPatientRequestsAcceptedTable(props) {
 			_react2.default.createElement(
 				'td',
 				{ style: tableStyle },
-				patient.healthcareplan.name
-			),
-			_react2.default.createElement(
-				'td',
-				{ style: tableStyle },
 				patient.hospitalsAndState.userHospital.name
 			),
 			_react2.default.createElement(
@@ -35401,7 +35396,7 @@ function ViewPatientRequestsAcceptedTable(props) {
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
-									'DNI'
+									'Paciente'
 								),
 								_react2.default.createElement(
 									'th',
@@ -35427,11 +35422,6 @@ function ViewPatientRequestsAcceptedTable(props) {
 									'th',
 									{ style: { border: "1px solid grey" } },
 									'Solicitante'
-								),
-								_react2.default.createElement(
-									'th',
-									{ style: { border: "1px solid grey" } },
-									'Plan'
 								),
 								_react2.default.createElement(
 									'th',
@@ -35609,7 +35599,7 @@ function ViewPatientRequestsPendingTable(props) {
                                 _react2.default.createElement(
                                     'th',
                                     { style: { border: "1px solid grey" } },
-                                    'Obra Social'
+                                    'Solicitante'
                                 ),
                                 _react2.default.createElement(
                                     'th',
@@ -35768,7 +35758,7 @@ function ViewPatientRequestsViewedTable(props) {
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
-									'Obra Social'
+									'Solicitante'
 								),
 								_react2.default.createElement(
 									'th',
