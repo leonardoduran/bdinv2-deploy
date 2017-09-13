@@ -85,6 +85,22 @@ router.put('/', authValidator.isLoggedIn,function(req, res, next) {
   })
 })
 
+router.put('/changepass', authValidator.isLoggedIn,function(req, res, next) {
+  user.findById(req.body.userId)
+  .then(function(sanitizedUser){
+    if (sanitizedUser){
+        sanitizedUser.setPassword(req.body.newPass, function(){
+            sanitizedUser.save();
+            res.status(200).json({message: 'password reset successful', newPass: req.body.newPass});
+        });
+    } else {
+        res.status(500).json({message: 'This user does not exist'});
+    }
+  },function(err){
+    console.error(err);
+  })
+})
+
 router.delete('/', function(req,res,next) {
   user.remove({_id : req.body._id})
   .then(() => {

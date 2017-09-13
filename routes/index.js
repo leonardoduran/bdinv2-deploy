@@ -15,7 +15,9 @@ router.post('/login', userMiddleWare.authenticateUser,
     username : req.user.userName,
     type : req.user.type,
     id: req.user._id,
-    data : req.user.data
+    data : req.user.data,
+    institucionCode : req.user.osCode ? req.user.osCode : req.user.hospitalCode
+    // req.user.instCode= data.osCode;
   }
   res.send(userData);
 });

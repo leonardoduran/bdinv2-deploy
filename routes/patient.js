@@ -14,9 +14,6 @@ router.post('/createPatientRequest', function(req, res, next) {
   .catch(err => errorHandler.sendInternalServerError(res))
 });
 
-
-
-
 router.get('/allPatientRequests', function(req, res, next) {
   // retorna todas las request de pacientes para todos los hospitales
   // RequestPatient.find({}).exec((err, result)=>{
