@@ -10,6 +10,7 @@ const index = require('./routes/index');
 const indexBedin = require('./routes/bedin/index');
 const indexHealthcare = require('./routes/healthcare/index');
 const indexHospital = require('./routes/hospital/index')
+const patient = require('./routes/patient')
 const app = express();
 require('./config/mongoose')
 require('./config/passport-mongoose')(app);
