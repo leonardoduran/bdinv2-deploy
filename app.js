@@ -24,6 +24,7 @@ app.use('/', index);
 app.use('/bedin', indexBedin);
 app.use('/healthcare', indexHealthcare);
 app.use('/hospital', indexHospital);
+app.use('/patient', patient);
 const controllerHealthcare = require('./controladores/healthcare');
 controllerHealthcare.setPatientTimeOut();
 //app.use('/bedin/healthcares', healthcares)
