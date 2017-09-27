@@ -25,7 +25,8 @@ module.exports = {
 			case 'Hospital' : 
 				users.findById(req.user._id).populate('hospitals').exec()
 				.then(data => { 
-					req.user.data = data.hospitals;
+					req.user.data = data.hospitals;	
+// console.log(data.hospitalCode)
 					return next();
 				})
 				.catch(err => {
