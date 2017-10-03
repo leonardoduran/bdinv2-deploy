@@ -25,8 +25,8 @@ const moment = require('moment');
 
 
   RequestPatient.find(queryFind)
-  .populate('healthCare','name')
-  .populate('healthCarePlan','name')
+  .populate('healthcare','name')
+  .populate('healthcareplan','name')
   .populate('hospitalsAndState.hospital','name')
   .populate('hospitalsAndState.userHospital','name')
   .populate('hospitalsAndState.userFinanciador','name')

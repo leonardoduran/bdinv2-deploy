@@ -32851,11 +32851,42 @@ function ViewTableReport(props) {
 	var formattedDate = function formattedDate(date) {
 		return (0, _moment2.default)(date).format('DD/MM/YYYY || HH:mm:ss');
 	};
+	var buildDetailTable = function buildDetailTable() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+		var state = arguments[1];
 
+		return listRequest.map(function (request) {
+			return state == null || request.state == state ? _react2.default.createElement(
+				'p',
+				null,
+				'- ',
+				request.hospital.name
+			) : null;
+		});
+	};
+	var buildConfirm = function buildConfirm() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+		return listRequest.map(function (request) {
+			return request.matchedDate ? _react2.default.createElement(
+				'p',
+				null,
+				request.hospital.name,
+				' (',
+				request.userFinanciador.name,
+				')'
+			) : null;
+		});
+	};
 	var tableBody = props.patientsList.map(function (patient, i) {
 		return _react2.default.createElement(
 			'tr',
-			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id },
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.healthcare.name
+			),
 			_react2.default.createElement(
 				'td',
 				null,
@@ -32884,7 +32915,44 @@ function ViewTableReport(props) {
 			_react2.default.createElement(
 				'td',
 				null,
-				formattedDate(patient.dateCreated)
+				formattedDate(patient.dateCreated),
+				' por ',
+				patient.userCreator.name
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.healthcareplan.name
+			),
+			_react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				buildDetailTable(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				buildDetailTable(patient.hospitalsAndState, "Aceptado")
+			),
+			_react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				buildDetailTable(patient.hospitalsAndState, "Rechazado")
+			),
+			_react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				buildDetailTable(patient.hospitalsAndState, "Visto")
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				buildConfirm(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.obs
 			)
 		);
 	});
@@ -32916,6 +32984,11 @@ function ViewTableReport(props) {
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
+									'Solicitante'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
 									'Paciente'
 								),
 								_react2.default.createElement(
@@ -32936,12 +33009,47 @@ function ViewTableReport(props) {
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
-									'Complejidad de Cama'
+									'Complejidad'
 								),
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
-									'Fecha/Hora'
+									'Creado'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Plan'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Enviado a'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Aceptado por'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Rechazado por'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Visto por'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Confirmado a/por'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Comentario'
 								)
 							)
 						),
@@ -35502,7 +35610,7 @@ exports.default = CreatePatientRequestForm;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _react = __webpack_require__(2);
@@ -35518,147 +35626,173 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var tableStyle = { border: "1px solid grey" };
 var tableStyle1 = { border: "1px solid grey", backgroundColor: "#E7E7CF" };
 function ViewPatientRequestsMatchedTable(props) {
-    var formattedDate = function formattedDate(date) {
-        // return moment(date).format('DD/MM/YYYY || HH:mm:ss');
-        return ((0, _moment2.default)(date).isSame((0, _moment2.default)(), 'day') ? 'HOY  ' : 'AYER ') + (0, _moment2.default)(date).format('HH:mm:ss');
-    };
-    var setRowColor = function setRowColor(color) {
-        return { backgroundColor: color };
-    };
-    var marginLeft = { marginLeft: "5px" };
-    var tableBody = props.patients.map(function (patient, i) {
-        return _react2.default.createElement(
-            'tr',
-            { style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-            _react2.default.createElement(
-                'td',
-                null,
-                patient.dni
-            ),
-            _react2.default.createElement(
-                'td',
-                null,
-                patient.cie10
-            ),
-            _react2.default.createElement(
-                'td',
-                null,
-                patient.complexity
-            ),
-            _react2.default.createElement(
-                'td',
-                null,
-                patient.hospitalsAndState[0].hospital.name
-            ),
-            _react2.default.createElement(
-                'td',
-                { title: formattedDate(patient.dateCreated) },
-                patient.userCreator ? patient.userCreator.name : ''
-            ),
-            _react2.default.createElement(
-                'td',
-                { title: formattedDate(patient.updatedDate) },
-                patient.hospitalsAndState[0].userHospital.name
-            ),
-            _react2.default.createElement(
-                'td',
-                { title: formattedDate(patient.matchedDate) },
-                patient.hospitalsAndState[0].userFinanciador.name
-            ),
-            patient.messages.length > 0 ? _react2.default.createElement(
-                'td',
-                null,
-                _react2.default.createElement(
-                    'button',
-                    { title: 'Ver Mensajes ', type: 'button', className: 'btn btn-info btn-xs', style: marginLeft,
-                        onClick: function onClick() {
-                            return props.verMensajes(patient.messages);
-                        } },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
-                )
-            ) : _react2.default.createElement(
-                'td',
-                null,
-                ' '
-            )
-        );
-    });
+  var formattedDate = function formattedDate(date) {
+    // return moment(date).format('DD/MM/YYYY || HH:mm:ss');
+    return ((0, _moment2.default)(date).isSame((0, _moment2.default)(), 'day') ? 'HOY  ' : 'AYER ') + (0, _moment2.default)(date).format('HH:mm:ss');
+  };
+
+  var buildMessages = function buildMessages() {
+    var listMsgs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var idHosp = arguments[1];
+
+    var hayMsg = void 0;
+    hayMsg = false;
+    for (var i = 0; i < listMsgs.length; i++) {
+      if (listMsgs[i].hospitalId._id == idHosp) {
+        hayMsg = true;
+        break;
+      }
+    }
+    return hayMsg;
+  };
+
+  var setRowColor = function setRowColor(color) {
+    return { backgroundColor: color };
+  };
+  var marginLeft = { marginLeft: "5px" };
+  var tableBody = props.patients.map(function (patient, i) {
     return _react2.default.createElement(
-        'div',
+      'tr',
+      { style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.dni
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.cie10
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.complexity
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.hospitalsAndState[0].hospital.name
+      ),
+      _react2.default.createElement(
+        'td',
+        { title: formattedDate(patient.dateCreated) },
+        patient.userCreator ? patient.userCreator.name : ''
+      ),
+      _react2.default.createElement(
+        'td',
+        { title: formattedDate(patient.updatedDate) },
+        patient.hospitalsAndState[0].userHospital.name
+      ),
+      _react2.default.createElement(
+        'td',
+        { title: formattedDate(patient.matchedDate) },
+        patient.hospitalsAndState[0].userFinanciador.name
+      ),
+      patient.hospitalsAndState[0].matchedDate && buildMessages(patient.messages, patient.hospitalsAndState[0].hospital._id) ? _react2.default.createElement(
+        'td',
         null,
         _react2.default.createElement(
-            'div',
-            { className: 'container container_a' },
-            _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
-                    _react2.default.createElement(
-                        'table',
-                        { style: { border: "1px solid grey" }, className: 'table' },
-                        _react2.default.createElement(
-                            'thead',
-                            { style: { border: "1px solid grey" } },
-                            _react2.default.createElement(
-                                'tr',
-                                { style: Object.assign({}, setRowColor('lightgrey')) },
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Paciente'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Diagn\xF3stico'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Complejidad'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Instituci\xF3n'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Gener\xF3'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Acept\xF3'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Confirm\xF3'
-                                ),
-                                _react2.default.createElement(
-                                    'th',
-                                    { style: { border: "1px solid grey" } },
-                                    'Mensajes'
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'tbody',
-                            null,
-                            tableBody
-                        )
-                    )
-                )
-            )
+          'button',
+          { title: 'Ver Mensajes ', type: 'button', className: 'btn btn-info btn-xs', style: marginLeft,
+            onClick: function onClick() {
+              return props.verMensajes(patient.messages);
+            } },
+          _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
         )
+      ) : _react2.default.createElement(
+        'td',
+        null,
+        ' '
+      )
     );
+  });
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      { className: 'container container_a' },
+      _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
+          _react2.default.createElement(
+            'table',
+            { style: { border: "1px solid grey" }, className: 'table' },
+            _react2.default.createElement(
+              'thead',
+              { style: { border: "1px solid grey" } },
+              _react2.default.createElement(
+                'tr',
+                { style: Object.assign({}, setRowColor('lightgrey')) },
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Paciente'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Diagn\xF3stico'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Complejidad'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Instituci\xF3n'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Gener\xF3'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Acept\xF3'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Confirm\xF3'
+                ),
+                _react2.default.createElement(
+                  'th',
+                  { style: { border: "1px solid grey" } },
+                  'Mensajes'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'tbody',
+              null,
+              tableBody
+            )
+          )
+        )
+      )
+    )
+  );
 }
 exports.default = ViewPatientRequestsMatchedTable;
+
+// {patient.messages.length > 0 ? 
+//   (<td>
+//       <button title="Ver Mensajes " type="button" className="btn btn-info btn-xs" style={marginLeft}
+//         onClick={()=> props.verMensajes(patient.messages)}>
+//       <span className="glyphicon glyphicon-envelope"></span>
+//       </button>
+//   </td>)
+//   :
+//   (<td> </td>)}
 
 /***/ }),
 /* 296 */
@@ -35867,8 +36001,6 @@ function ViewPatientRequestsPendingTable(props) {
 }
 exports.default = ViewPatientRequestsPendingTable;
 
-// onClick={()=> props.setState(patient._id, 'Rechazado')}
-
 /***/ }),
 /* 297 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -35989,6 +36121,8 @@ function TableViewRequestDetails(props) {
 }
 
 exports.default = TableViewRequestDetails;
+
+// {(withMsj && buildMessages(eachPending.messages,eachPending.hospital._id) )? <p>Btn</p> : null}
 
 /***/ }),
 /* 298 */
@@ -39375,7 +39509,34 @@ var ViewReport = function (_React$Component) {
             var data_type = 'data:application/vnd.ms-excel';
             var table_div = document.getElementById('table_wrapper');
             var table_html = table_div.outerHTML.replace(/ /g, '%20');
-            var dateFrom = document.getElementById("dateFrom").value;
+
+            while (table_html.indexOf('á') != -1) {
+                table_html = table_html.replace('á', '&aacute;');
+            }while (table_html.indexOf('Á') != -1) {
+                table_html = table_html.replace('Á', '&Aacute;');
+            }while (table_html.indexOf('é') != -1) {
+                table_html = table_html.replace('é', '&eacute;');
+            }while (table_html.indexOf('É') != -1) {
+                table_html = table_html.replace('É', '&Eacute;');
+            }while (table_html.indexOf('í') != -1) {
+                table_html = table_html.replace('í', '&iacute;');
+            }while (table_html.indexOf('Í') != -1) {
+                table_html = table_html.replace('Í', '&Iacute;');
+            }while (table_html.indexOf('ó') != -1) {
+                table_html = table_html.replace('ó', '&oacute;');
+            }while (table_html.indexOf('Ó') != -1) {
+                table_html = table_html.replace('Ó', '&Oacute;');
+            }while (table_html.indexOf('ú') != -1) {
+                table_html = table_html.replace('ú', '&uacute;');
+            }while (table_html.indexOf('Ú') != -1) {
+                table_html = table_html.replace('Ú', '&Uacute;');
+            }while (table_html.indexOf('º') != -1) {
+                table_html = table_html.replace('º', '&ordm;');
+            }while (table_html.indexOf('ñ') != -1) {
+                table_html = table_html.replace('ñ', '&ntilde;');
+            }while (table_html.indexOf('Ñ') != -1) {
+                table_html = table_html.replace('Ñ', '&Ntilde;');
+            }var dateFrom = document.getElementById("dateFrom").value;
             var dateTo = document.getElementById("dateTo").value;
 
             var a = document.createElement('a');
