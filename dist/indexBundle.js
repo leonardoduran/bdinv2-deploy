@@ -11193,6 +11193,8 @@ exports.requestList = requestList;
 exports.receivePlans = receivePlans;
 exports.resetCreateSuccess = resetCreateSuccess;
 exports.fetchPlanList = fetchPlanList;
+exports.receiveDiagnosis = receiveDiagnosis;
+exports.fetchDiagnosis = fetchDiagnosis;
 exports.createPatientRequest = createPatientRequest;
 exports.receivePending = receivePending;
 exports.receiveMatched = receiveMatched;
@@ -11267,6 +11269,34 @@ function fetchPlanList() {
       return response.json();
     }).then(function (data) {
       dispatch(receivePlans(data));
+    }).catch(function (err) {
+      return dispatch(failedRequest(err));
+    });
+  };
+};
+
+function receiveDiagnosis(diagnosis) {
+  return {
+    type: 'RECEIVE_DIAGNOSIS',
+    diagnosis: diagnosis
+  };
+}
+
+function fetchDiagnosis() {
+  return function (dispatch) {
+    dispatch(requestList());
+
+    return fetch('./healthcare/diagnosis', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      dispatch(receiveDiagnosis(data));
     }).catch(function (err) {
       return dispatch(failedRequest(err));
     });
@@ -35394,10 +35424,11 @@ function CreatePatientRequestForm(props) {
         "div",
         { className: "col-xs-8 col-sm-6 col-lg-6 " },
         _react2.default.createElement(
-          "h2",
+          "h3",
           null,
-          "Generar Solicitud de Paciente"
+          " Generar Solicitud de Admisi\xF3n de Paciente "
         ),
+        _react2.default.createElement("br", null),
         _react2.default.createElement(
           "form",
           { className: "form-horizontal" },
@@ -38240,7 +38271,8 @@ function mapStateToProps(state) {
 		dateCreated: state.patientRequestReducers.dateCreated,
 		hospitalsRequested: state.patientRequestReducers.hospitalsRequested,
 		plans: state.patientRequestReducers.plans,
-		error: state.patientRequestReducers.error
+		error: state.patientRequestReducers.error,
+		diagnosis: state.patientRequestReducers.diagnosis
 	};
 };
 
@@ -38265,6 +38297,13 @@ var CreatePatientRequest = function (_React$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {
 			this.props.fetchPlanList();
+			this.props.fetchDiagnosis();
+		}
+	}, {
+		key: 'validDiagnosis',
+		value: function validDiagnosis(aDiagnosis) {
+			//Valido que sea un diagnóstico que exista en los predefinidos
+			return true;
 		}
 	}, {
 		key: 'create',
@@ -38274,11 +38313,50 @@ var CreatePatientRequest = function (_React$Component) {
 			var selectedComplexity = document.getElementById("complexitySelect").value; //e.target.complejidad.value;
 			var selectedPlan = document.getElementById("planSelect").value; //e.target.plan.value;
 			var observation = document.getElementById("obs").value; // e.target.obs.value;
+			var edad = document.getElementById("edad").value;
+			var patient = document.getElementById("dni").value;
+			var diagnosis = document.getElementById("cie").value;
+
+			if (selectedPlan == "---Selecccione Plan---") {
+				alert("No se seleccinó plan");
+				document.getElementById("planSelect").focus();
+				return;
+			}
+			if (edad == '' || isNaN(edad) || edad < 0) {
+				alert("Edad no ingresada o no válida");
+				document.getElementById("edad").focus();
+				return;
+			}
+
+			if (patient == '') {
+				alert("No se ingresó el paciente");
+				document.getElementById("dni").focus();
+				return;
+			}
+
+			if (selectedSex == '---Seleccione Sexo---') {
+				alert("No se seleccinó sexo");
+				document.getElementById("sexSelect").focus();
+				return;
+			}
+
+			if (selectedComplexity == '---Seleccione Complejidad---') {
+				alert("No se seleccinó complejidad");
+				document.getElementById("complexitySelect").focus();
+				return;
+			}
+
+			if (diagnosis == '' || !this.validDiagnosis(diagnosis)) {
+				alert("Diagnóstico no ingresado o no válido");
+				document.getElementById("cie").focus();
+				return;
+			}
+
 			this.props.createPatientRequest({
-				dni: document.getElementById("dni").value, //e.target.dni.value,
-				age: document.getElementById("edad").value, //e.target.edad.value,
+				dni: patient,
+				age: edad,
 				sex: selectedSex,
-				cie10: document.getElementById("cie").value, //e.target.cie.value,
+				cie10: diagnosis,
 				complexity: selectedComplexity,
 				healthcareplan: selectedPlan,
 				userCreator: _store2.default.getState().authentication.userId,
@@ -38536,7 +38614,7 @@ var ViewPatientRequestsMatched = function (_React$Component) {
       this.props.fetchMatchedPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchMatchedPatientRequests();
-      }, 10000);
+      }, 1000 * 60);
     }
   }, {
     key: 'componentWillUnmount',
@@ -38698,7 +38776,7 @@ var ViewPatientRequestsPending = function (_React$Component) {
       this.props.fetchPendingPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchPendingPatientRequests();
-      }, 10000);
+      }, 1000 * 60);
     }
   }, {
     key: 'componentWillUnmount',
@@ -38993,7 +39071,7 @@ var ViewAcceptedPatientRequest = function (_React$Component) {
 			this.props.fetchGetPatientsByState('Aceptado');
 			this.idInterval = setInterval(function () {
 				_this2.props.fetchGetPatientsByState('Aceptado');
-			}, 10000);
+			}, 1000 * 60);
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -39093,7 +39171,7 @@ var ViewPatientRequest = function (_React$Component) {
             this.props.fetchGetPatients();
             this.idInterval = setInterval(function () {
                 _this2.props.fetchGetPatients();
-            }, 10000);
+            }, 1000 * 60);
         }
     }, {
         key: 'componentWillUnmount',
@@ -39206,7 +39284,7 @@ var ViewRejectedPatientRequest = function (_React$Component) {
 			this.props.fetchGetPatientsByState('Rechazado');
 			this.idInterval = setInterval(function () {
 				_this2.props.fetchGetPatientsByState('Rechazado');
-			}, 10000);
+			}, 1000 * 60);
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -39332,7 +39410,7 @@ var ViewViewedPatientRequest = function (_React$Component) {
       this.props.fetchGetPatientsByState('Visto');
       this.state.idInterval = setInterval(function () {
         _this2.props.fetchGetPatientsByState('Visto');
-      }, 10000);
+      }, 1000 * 60);
     }
   }, {
     key: 'componentWillUnmount',
@@ -40107,7 +40185,8 @@ function patientRequestReducers() {
     requestFail: false,
     receivePending: false,
     pendingList: [],
-    matchedList: []
+    matchedList: [],
+    diagnosis: []
   };
   var action = arguments[1];
 
@@ -40130,7 +40209,8 @@ function patientRequestReducers() {
         requestFail: false,
         receivePending: false,
         pendingList: [],
-        matchedList: []
+        matchedList: [],
+        diagnosis: []
       });
     case 'REQUEST_CREATE':
       return Object.assign({}, state, { isRequesting: true });
@@ -40161,6 +40241,13 @@ function patientRequestReducers() {
         receivePlans: true,
         plans: action.plans // receiving an array of plans belonging to the financiador signed in
       });
+
+    case 'RECEIVE_DIAGNOSIS':
+      return Object.assign({}, state, {
+        isRequesting: false,
+        diagnosis: action.diagnosis
+      });
+
     case 'FAILED_REQUEST':
       return Object.assign({}, state, {
         isRequesting: false,
