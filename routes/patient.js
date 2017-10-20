@@ -10,12 +10,26 @@ const moment = require('moment');
   let healthcareId= req.query.healthcareId;
   let dateFrom=req.query.dateFrom; // condicion gte (>=)
   let dateTo=moment(req.query.dateTo).add(1,'days'); // Le sumo 1 porque la condicion es lt (<)
-  let queryFind = {
-    "dateCreated": {
-      $gte: dateFrom,
-      $lt: dateTo
+  // let queryFind = {}
+
+  // if(dateFrom!=='null' && dateTo!=='null'){  
+  //   queryFind = {
+  //     "dateCreated": {
+  //       $gte: dateFrom,
+  //       $lt: dateTo
+  //     }
+  //   }
+  // }else{
+  //   queryFind["healthcare"] = null;
+  //   queryFind["hospitalsAndState.hospital"] = null;
+  // }
+
+    let queryFind = {
+      "dateCreated": {
+        $gte: dateFrom,
+        $lt: dateTo
+      }
     }
-  }
 
   if(hospitalId!=='null')
       queryFind["hospitalsAndState.hospital"] = hospitalId
@@ -23,6 +37,9 @@ const moment = require('moment');
   if(healthcareId!=='null')
       queryFind["healthcare"] = healthcareId
 
+// console.log("from",dateFrom);
+// console.log("to",dateTo);
+// console.log("Execute",queryFind);
 
   RequestPatient.find(queryFind)
   .populate('healthcare','name')

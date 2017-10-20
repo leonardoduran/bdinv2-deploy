@@ -7711,8 +7711,11 @@ function fecthHistoricalPatients(dateFrom, dateTo, hospitalId, healthcareId) {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      console.log('then', data);
-      dispatch(receiveHistoricalPatients(data));
+      if (!data.error) {
+        dispatch(receiveHistoricalPatients(data));
+      } else {
+        dispatch(failedHistoricalPatients(data.err));
+      }
     }).catch(function (err) {
       return dispatch(failedHistoricalPatients(err));
     });
@@ -11012,10 +11015,10 @@ function GlobalNavbar(props) {
   var links = props.data.linkArray.map(function (linkData, i) {
     return _react2.default.createElement(
       'li',
-      { className: 'nav-item', key: i },
+      { key: i },
       _react2.default.createElement(
         _reactRouter.Link,
-        { className: 'nav-link', activeClassName: 'active', to: '' + linkData.route },
+        { className: 'nav-link', to: '' + linkData.route },
         linkData.name
       )
     );
@@ -11039,7 +11042,7 @@ function GlobalNavbar(props) {
             _react2.default.createElement(
               'h1',
               null,
-              'BdIn'
+              'BedIn'
             )
           ),
           _react2.default.createElement(
@@ -11096,10 +11099,10 @@ function GlobalNavbar(props) {
         { className: 'container' },
         _react2.default.createElement(
           'div',
-          { className: 'row' },
+          { className: 'row flexItems' },
           _react2.default.createElement(
             'div',
-            { className: 'col-xs-10 col-md-6' },
+            { className: 'col-xs-3 col-xs-3 col-md-12 ' },
             _react2.default.createElement(
               'ul',
               { className: 'nav navbar-nav' },
@@ -14214,7 +14217,7 @@ function TableViewMessages(props) {
 		null,
 		_react2.default.createElement(
 			'table',
-			{ style: { border: "1px solid grey" }, className: 'table' },
+			{ style: { border: "1px solid grey" }, className: 'table table-responsive' },
 			_react2.default.createElement(
 				'thead',
 				{ style: { border: "1px solid grey" } },
@@ -33124,10 +33127,10 @@ function AdminUserForm(props) {
       _react2.default.createElement(
         "div",
         { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-3 col-lg-3" }),
+        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
         _react2.default.createElement(
           "div",
-          { className: "col-xs-8 col-sm-6 col-lg-6 " },
+          { className: "col-xs-8 col-sm-8 col-lg-8 " },
           _react2.default.createElement(
             "h2",
             null,
@@ -33333,7 +33336,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var navBarData = {
 	linkArray: [{
-		route: "/Bedin",
+		route: "/Bdin",
 		name: "Home"
 	}, {
 		route: "/Bedin/financiador",
@@ -33442,11 +33445,11 @@ function FinanciadorFormStep1(props) {
       { className: "container a1" },
       _react2.default.createElement(
         "div",
-        { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-3 col-lg-3" }),
+        { className: "row " },
+        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2" }),
         _react2.default.createElement(
           "div",
-          { className: "col-xs-8 col-sm-5 col-lg-5 " },
+          { className: "col-xs-8 col-sm-8  " },
           _react2.default.createElement(
             "form",
             { className: "form-horizontal", onSubmit: props.nextStep },
@@ -33455,15 +33458,11 @@ function FinanciadorFormStep1(props) {
               { className: "form-group " },
               _react2.default.createElement(
                 "div",
-                { id: "b1" },
+                null,
                 _react2.default.createElement(
-                  "span",
-                  { id: "e1" },
-                  _react2.default.createElement(
-                    "h",
-                    null,
-                    "INGRESE NUEVO SOLICITANTE"
-                  )
+                  "h2",
+                  { className: "flexItems" },
+                  "INGRESE NUEVO SOLICITANTE"
                 )
               ),
               _react2.default.createElement(
@@ -33614,10 +33613,10 @@ function FinanciadorFormStep2(props) {
       _react2.default.createElement(
         'div',
         { className: 'row' },
-        _react2.default.createElement('div', { className: 'col-xs- col-sm-2 col-lg-2' }),
+        _react2.default.createElement('div', { className: 'col-xs-1 col-sm-1 col-lg-1' }),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-5 col-sm-4 col-lg-4', id: 'a' },
+          { className: 'col-xs-5 col-sm-5 col-lg-5', id: 'a' },
           _react2.default.createElement(
             'div',
             { className: 'form-horizontal' },
@@ -33686,7 +33685,7 @@ function FinanciadorFormStep2(props) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-5 col-sm-4 col-lg-4', id: 'f' },
+          { className: 'col-xs-5 col-sm-5 col-lg-5', id: 'f' },
           _react2.default.createElement(
             'table',
             { className: 'table  g' },
@@ -33737,8 +33736,7 @@ function FinanciadorFormStep2(props) {
               })
             )
           )
-        ),
-        _react2.default.createElement('div', { className: 'col-xs-1 col-sm-3 col-lg-3 ' })
+        )
       ),
       _react2.default.createElement(
         'button',
@@ -33792,7 +33790,7 @@ function FinanciadorHome(props) {
         _react2.default.createElement('div', { className: 'col-xs-hidden col-sm-2 col-lg-2 col-xl-2' }),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 col-lg-4 col-xl-4 ' },
+          { className: 'col-xs-14 col-sm-4 col-lg-4 col-xl-4 ' },
           _react2.default.createElement(
             'h2',
             { className: 'e4 ' },
@@ -33808,12 +33806,12 @@ function FinanciadorHome(props) {
             _reactRouter.Link,
             { to: '/Bedin/financiador/entver', className: 'btn icon-btn btn-info', id: 'c4' },
             _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-list img-circle text-info' }),
-            'Solicitante'
+            'Lista de Solicitantes'
           )
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 col-lg-4 col-xl-2 ' },
+          { className: 'col-xs-4 col-sm-4 col-lg-4 col-xl-2 ' },
           _react2.default.createElement(
             'h2',
             { className: 'e4' },
@@ -33911,10 +33909,10 @@ function FinanciadorUserForm(props) {
       _react2.default.createElement(
         "div",
         { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-3 col-lg-3" }),
+        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
         _react2.default.createElement(
           "div",
-          { className: "col-xs-8 col-sm-6 col-lg-6 " },
+          { className: "col-xs-8 col-sm-8 col-lg-8 " },
           _react2.default.createElement(
             "h2",
             null,
@@ -33999,7 +33997,7 @@ function FinanciadorUserForm(props) {
               _react2.default.createElement(
                 "label",
                 null,
-                "Seleccione Solicitante del Usuario"
+                "Seleccione Obra Social del Usuario"
               ),
               props.financiadors.map(function (financiador, i) {
                 return _react2.default.createElement(
@@ -34066,10 +34064,10 @@ function HospitalForm(props) {
       _react2.default.createElement(
         "div",
         { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-3 col-lg-3" }),
+        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
         _react2.default.createElement(
           "div",
-          { className: "col-xs-8 col-sm-6 col-lg-6 " },
+          { className: "col-xs-8 col-sm-8 col-lg-8 " },
           _react2.default.createElement(
             "h2",
             null,
@@ -34309,10 +34307,10 @@ function HospitalUserForm(props) {
       _react2.default.createElement(
         "div",
         { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-3 col-lg-3" }),
+        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
         _react2.default.createElement(
           "div",
-          { className: "col-xs-8 col-sm-6 col-lg-6 " },
+          { className: "col-xs-8 col-sm-8 col-lg-8 " },
           _react2.default.createElement(
             "h2",
             null,
@@ -34504,10 +34502,10 @@ function TableDataFinanciador(props) {
 		_react2.default.createElement(
 			"div",
 			{ className: "row" },
-			_react2.default.createElement("div", { className: "col-xs-2 col-sm-4 col-lg-3" }),
+			_react2.default.createElement("div", { className: "col-xs-1 col-sm-1" }),
 			_react2.default.createElement(
 				"div",
-				{ className: "col-xs-8 col-sm-6 col-lg-6 " },
+				{ className: "col-xs-10 col-sm-10  " },
 				_react2.default.createElement(
 					"div",
 					null,
@@ -34765,10 +34763,10 @@ function TableDataUserBedin(props) {
 			_react2.default.createElement(
 				'div',
 				{ className: 'row' },
-				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-2 col-lg-2' }),
+				_react2.default.createElement('div', { className: 'col-xs-1 col-sm-1 col-lg-1' }),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-xs-2 col-sm-8 col-lg-8' },
+					{ className: 'col-xs-10 col-sm-10 col-lg-10' },
 					_react2.default.createElement(
 						'table',
 						{ className: 'table' },
@@ -34811,8 +34809,7 @@ function TableDataUserBedin(props) {
 							users
 						)
 					)
-				),
-				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-2 col-lg-2' })
+				)
 			)
 		)
 	);
@@ -34912,10 +34909,10 @@ function TableDataUserFinanciador(props) {
 			_react2.default.createElement(
 				'div',
 				{ className: 'row' },
-				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-1 col-lg-1' }),
+				_react2.default.createElement('div', { className: 'col-xs-1 col-sm-1 col-lg-1' }),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-xs-2 col-sm-10 col-lg-10' },
+					{ className: 'col-xs-10 col-sm-10  col-lg-10' },
 					_react2.default.createElement(
 						'table',
 						{ className: 'table' },
@@ -35246,55 +35243,54 @@ function opcionHome(props) {
       { className: 'container-fluid b4' },
       _react2.default.createElement(
         'div',
-        { className: 'row' },
-        _react2.default.createElement('div', { className: 'col-xs-12 col-sm-2 col-lg-1  col-xl-1 ', id: 'e7' }),
+        { className: 'row flexItemss' },
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 col-lg-3 col-xl-3 flex-item-center ' },
+          { className: 'col-xs-8     col-sm-8   col-md-4 col-lg-4  ' },
           _react2.default.createElement(
             'div',
-            { id: 'a7' },
+            { className: 'flexItems', id: 'a7' },
             _react2.default.createElement(
               'h2',
-              { className: 'text-xs-center' },
+              null,
               'Solicitante'
             ),
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/Bedin/financiador/entcrear', className: 'btn icon-btn btn-info', id: 'c4a' },
-              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon-plus img-circle text-info flex-item-center' }),
+              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon-plus img-circle text-info ' }),
               'Adherir Solicitante '
             ),
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/Bedin/financiador/entver', className: 'btn icon-btn btn-info', id: 'c4a' },
-              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-list img-circle text-info flex-item-center' }),
-              'Solicitante '
+              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-list img-circle text-info ' }),
+              'Lista de Solicitantes '
             ),
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/Bedin/financiador/usercrear', className: 'btn icon-btn btn-info', id: 'c4a' },
-              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-user img-circle text-info flex-item-center' }),
+              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-user img-circle text-info ' }),
               'Generar Usuario  '
             ),
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/Bedin/financiador/userver', className: 'btn icon-btn btn-info', id: 'c4a' },
-              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-list img-circle text-info flex-item-center' }),
+              _react2.default.createElement('span', { className: 'glyphicon a4 glyphicon glyphicon-list img-circle text-info ' }),
               'Lista de Usuarios '
             )
           )
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 col-lg-3 col-xl-3 oh text-aligt-center ' },
+          { className: 'col-xs-8 col-sm-8    col-md-4  col-lg-4    ' },
           _react2.default.createElement(
             'div',
-            { id: 'b7' },
+            { className: 'flexItems', id: 'b7' },
             _react2.default.createElement(
               'h2',
-              { className: 'text-xs-center ' },
-              'Hospital'
+              null,
+              'Prestador'
             ),
             _react2.default.createElement(
               _reactRouter.Link,
@@ -35324,13 +35320,13 @@ function opcionHome(props) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 col-lg-3 col-xl-3 oh ' },
+          { className: 'col-xs-8 col-sm-8  col-md-4 col-lg-4  ' },
           _react2.default.createElement(
             'div',
-            { id: 'c7' },
+            { className: 'flexItems', id: 'c7' },
             _react2.default.createElement(
               'h2',
-              { className: ' text-xs-center' },
+              null,
               'Administraci\xF3n'
             ),
             _react2.default.createElement(
@@ -35346,8 +35342,7 @@ function opcionHome(props) {
               'Lista de Usuarios'
             )
           )
-        ),
-        _react2.default.createElement('div', { className: 'col-xs-12 col-sm-4 col-lg-1 col-xl-1 ', id: 'd7' })
+        )
       )
     )
   );
@@ -35418,11 +35413,11 @@ function CreatePatientRequestForm(props) {
     { className: "container container_a" },
     _react2.default.createElement(
       "div",
-      { className: "row" },
-      _react2.default.createElement("div", { className: "col-xs-2 col-sm-4 col-lg-2" }),
+      { className: "row flexItems" },
+      _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
       _react2.default.createElement(
         "div",
-        { className: "col-xs-8 col-sm-6 col-lg-6 " },
+        { className: "col-xs-8 col-sm-8 col-lg-8 " },
         _react2.default.createElement(
           "h3",
           null,
@@ -35753,7 +35748,7 @@ function ViewPatientRequestsMatchedTable(props) {
           { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
           _react2.default.createElement(
             'table',
-            { style: { border: "1px solid grey" }, className: 'table' },
+            { style: { border: "1px solid grey" }, className: 'table table-responsive' },
             _react2.default.createElement(
               'thead',
               { style: { border: "1px solid grey" } },
@@ -35965,7 +35960,7 @@ function ViewPatientRequestsPendingTable(props) {
                     { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
                     _react2.default.createElement(
                         'table',
-                        { style: { border: "1px solid grey" }, className: 'table' },
+                        { style: { border: "1px solid grey" }, className: 'table table-responsive' },
                         _react2.default.createElement(
                             'thead',
                             { style: { border: "1px solid grey" } },
@@ -36113,7 +36108,7 @@ function TableViewRequestDetails(props) {
 		null,
 		_react2.default.createElement(
 			'table',
-			{ style: { border: "1px solid black" }, className: 'table' },
+			{ style: { border: "1px solid black" }, className: 'table table-responsive' },
 			_react2.default.createElement(
 				'thead',
 				{ style: { border: "1px solid black" } },
@@ -36270,7 +36265,7 @@ function ViewPatientRequestsAcceptedTable(props) {
 					{ className: 'col-xs-10' },
 					_react2.default.createElement(
 						'table',
-						{ style: { border: "1px solid grey" }, className: 'table' },
+						{ style: { border: "1px solid grey" }, className: 'table table-responsive' },
 						_react2.default.createElement(
 							'thead',
 							{ style: { border: "1px solid grey" } },
@@ -36464,7 +36459,7 @@ function ViewPatientRequestsPendingTable(props) {
                     { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
                     _react2.default.createElement(
                         'table',
-                        { style: { border: "1px solid grey" }, className: 'table' },
+                        { style: { border: "1px solid grey" }, className: 'table table-responsive' },
                         _react2.default.createElement(
                             'thead',
                             { style: { border: "1px solid grey" } },
@@ -36626,7 +36621,7 @@ function ViewPatientRequestsRejectedTable(props) {
 					{ className: 'col-xs-8 col-sm-6 col-lg-10 ' },
 					_react2.default.createElement(
 						'table',
-						{ style: { border: "1px solid grey" }, className: 'table' },
+						{ style: { border: "1px solid grey" }, className: 'table table-responsive' },
 						_react2.default.createElement(
 							'thead',
 							{ style: { border: "1px solid grey" } },
@@ -36722,7 +36717,53 @@ function ViewPatientRequestsViewedTable(props) {
 	};
 
 	var tableBody = props.patientsList.map(function (patient, i) {
-		return _react2.default.createElement(
+		return patient.isConfirm ? _react2.default.createElement(
+			'tr',
+			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.dni
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.age
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.sex
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.cie10
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.complexity
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.healthcare.name
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.hospitalsAndState.userHospital.name
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				formattedDate(patient.dateCreated)
+			),
+			_react2.default.createElement('td', null),
+			_react2.default.createElement('td', null),
+			_react2.default.createElement('td', null)
+		) : _react2.default.createElement(
 			'tr',
 			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
 			_react2.default.createElement(
@@ -36821,7 +36862,7 @@ function ViewPatientRequestsViewedTable(props) {
 					{ className: 'col-xs-8 col-sm-6 col-lg-10 ' },
 					_react2.default.createElement(
 						'table',
-						{ style: { border: "1px solid grey" }, className: 'table' },
+						{ style: { border: "1px solid grey" }, className: 'table table-responsive' },
 						_react2.default.createElement(
 							'thead',
 							{ style: { border: "1px solid grey" } },
@@ -38223,7 +38264,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38258,140 +38299,303 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// import Autosuggest from 'react-autosuggest';
+
 function mapStateToProps(state) {
-	return {
-		isRequesting: state.patientRequestReducers.isRequesting,
-		createSuccess: state.patientRequestReducers.createSuccess,
-		dni: state.patientRequestReducers.dni,
-		age: state.patientRequestReducers.age,
-		sex: state.patientRequestReducers.sex,
-		cie10: state.patientRequestReducers.cie10,
-		complexity: state.patientRequestReducers.complexity,
-		patientPlan: state.patientRequestReducers.patientPlan,
-		dateCreated: state.patientRequestReducers.dateCreated,
-		hospitalsRequested: state.patientRequestReducers.hospitalsRequested,
-		plans: state.patientRequestReducers.plans,
-		error: state.patientRequestReducers.error,
-		diagnosis: state.patientRequestReducers.diagnosis
-	};
+  return {
+    isRequesting: state.patientRequestReducers.isRequesting,
+    createSuccess: state.patientRequestReducers.createSuccess,
+    dni: state.patientRequestReducers.dni,
+    age: state.patientRequestReducers.age,
+    sex: state.patientRequestReducers.sex,
+    cie10: state.patientRequestReducers.cie10,
+    complexity: state.patientRequestReducers.complexity,
+    patientPlan: state.patientRequestReducers.patientPlan,
+    dateCreated: state.patientRequestReducers.dateCreated,
+    hospitalsRequested: state.patientRequestReducers.hospitalsRequested,
+    plans: state.patientRequestReducers.plans,
+    error: state.patientRequestReducers.error
+    // diagnosisSuggest: state.patientRequestReducers.diagnosis,
+    // valueDiagnosisSuggest : state.patientRequestReducers.diagnosisSuggest
+  };
 };
 
+// const diagnosis=[]
+
 function mapDispatchToProps(dispatch) {
-	return (0, _redux.bindActionCreators)(actionCreators, dispatch);
+  return (0, _redux.bindActionCreators)(actionCreators, dispatch);
 }
 
+// const getSuggestions = value => {
+//   const inputValue = value.trim().toLowerCase();
+//   const inputLength = inputValue.length;
+
+//   return inputLength === 0 ? [] : this.props.diagnosisSuggest.filter(diag =>
+//     diag.pathology.toLowerCase().slice(0, inputLength) === inputValue
+//   );
+// };
+
+// const getSuggestionValue = suggestion => suggestion.pathology;
+
+// // Use your imagination to render suggestions.
+// const renderSuggestion = suggestion => (
+//   <div>
+//         {suggestion.pathology}
+//   </div>
+// );
+
 var CreatePatientRequest = function (_React$Component) {
-	_inherits(CreatePatientRequest, _React$Component);
+  _inherits(CreatePatientRequest, _React$Component);
 
-	function CreatePatientRequest(props) {
-		_classCallCheck(this, CreatePatientRequest);
+  function CreatePatientRequest(props) {
+    _classCallCheck(this, CreatePatientRequest);
 
-		var _this = _possibleConstructorReturn(this, (CreatePatientRequest.__proto__ || Object.getPrototypeOf(CreatePatientRequest)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CreatePatientRequest.__proto__ || Object.getPrototypeOf(CreatePatientRequest)).call(this, props));
 
-		_this.create = _this.create.bind(_this);
-		_this.createOk = _this.createOk.bind(_this);
-		return _this;
-	}
+    _this.create = _this.create.bind(_this);
+    _this.createOk = _this.createOk.bind(_this);
+    // this.onChange = this.onChange.bind(this)
+    // this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
+    // this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+    // this.state = {
+    //  		value: '',
+    //  		suggestions: []
+    // }		
+    return _this;
+  }
 
-	_createClass(CreatePatientRequest, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			this.props.fetchPlanList();
-			this.props.fetchDiagnosis();
-		}
-	}, {
-		key: 'validDiagnosis',
-		value: function validDiagnosis(aDiagnosis) {
-			//Valido que sea un diagnóstico que exista en los predefinidos
-			return true;
-		}
-	}, {
-		key: 'create',
-		value: function create(e) {
-			e.preventDefault();
-			var selectedSex = document.getElementById("sexSelect").value; //e.target.sexo.value;
-			var selectedComplexity = document.getElementById("complexitySelect").value; //e.target.complejidad.value;
-			var selectedPlan = document.getElementById("planSelect").value; //e.target.plan.value;
-			var observation = document.getElementById("obs").value; // e.target.obs.value;
-			var edad = document.getElementById("edad").value;
-			var patient = document.getElementById("dni").value;
-			var diagnosis = document.getElementById("cie").value;
+  _createClass(CreatePatientRequest, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchPlanList();
+      this.props.fetchDiagnosis();
+    }
+  }, {
+    key: 'validDiagnosis',
+    value: function validDiagnosis(aDiagnosis) {
+      //Valido que sea un diagnóstico que exista en los predefinidos
+      return true;
+    }
+  }, {
+    key: 'create',
+    value: function create(e) {
+      e.preventDefault();
+      // console.log(this.state.diagnosis)
+      // console.log(this.state.sugg.value)
+      // return
+      var selectedSex = document.getElementById("sexSelect").value; //e.target.sexo.value;
+      var selectedComplexity = document.getElementById("complexitySelect").value; //e.target.complejidad.value;
+      var selectedPlan = document.getElementById("planSelect").value; //e.target.plan.value;
+      var observation = document.getElementById("obs").value; // e.target.obs.value;
+      var edad = document.getElementById("edad").value;
+      var patient = document.getElementById("dni").value;
+      var diagnosis = document.getElementById("cie").value;
 
-			if (selectedPlan == "---Selecccione Plan---") {
-				alert("No se seleccinó plan");
-				document.getElementById("planSelect").focus();
-				return;
-			}
-			if (edad == '' || isNaN(edad) || edad < 0) {
-				alert("Edad no ingresada o no válida");
-				document.getElementById("edad").focus();
-				return;
-			}
+      if (selectedPlan == "---Selecccione Plan---") {
+        alert("No se seleccinó plan");
+        document.getElementById("planSelect").focus();
+        return;
+      }
+      if (edad == '' || isNaN(edad) || edad < 0) {
+        alert("Edad no ingresada o no válida");
+        document.getElementById("edad").focus();
+        return;
+      }
 
-			if (patient == '') {
-				alert("No se ingresó el paciente");
-				document.getElementById("dni").focus();
-				return;
-			}
+      if (patient == '') {
+        alert("No se ingresó el paciente");
+        document.getElementById("dni").focus();
+        return;
+      }
 
-			if (selectedSex == '---Seleccione Sexo---') {
-				alert("No se seleccinó sexo");
-				document.getElementById("sexSelect").focus();
-				return;
-			}
+      if (selectedSex == '---Seleccione Sexo---') {
+        alert("No se seleccinó sexo");
+        document.getElementById("sexSelect").focus();
+        return;
+      }
 
-			if (selectedComplexity == '---Seleccione Complejidad---') {
-				alert("No se seleccinó complejidad");
-				document.getElementById("complexitySelect").focus();
-				return;
-			}
+      if (selectedComplexity == '---Seleccione Complejidad---') {
+        alert("No se seleccinó complejidad");
+        document.getElementById("complexitySelect").focus();
+        return;
+      }
 
-			if (diagnosis == '' || !this.validDiagnosis(diagnosis)) {
-				alert("Diagnóstico no ingresado o no válido");
-				document.getElementById("cie").focus();
-				return;
-			}
+      if (diagnosis == '' || !this.validDiagnosis(diagnosis)) {
+        alert("Diagnóstico no ingresado o no válido");
+        document.getElementById("cie").focus();
+        return;
+      }
 
-			this.props.createPatientRequest({
-				dni: patient,
-				age: edad,
-				sex: selectedSex,
-				cie10: diagnosis,
-				complexity: selectedComplexity,
-				healthcareplan: selectedPlan,
-				userCreator: _store2.default.getState().authentication.userId,
-				obs: observation
-			});
-			document.getElementById("dni").value = '';
-			document.getElementById("sexSelect").value = '---Seleccione Sexo---';
-			document.getElementById("edad").value = '';
-			document.getElementById("cie").value = '';
-			document.getElementById("complexitySelect").value = '---Seleccione Complejidad---';
-			document.getElementById("planSelect").value = '---Selecccione Plan---';
-			document.getElementById("obs").value = '';
-		}
-	}, {
-		key: 'createOk',
-		value: function createOk(e) {
-			e.preventDefault();
-			this.props.resetCreateSuccess();
-		}
-	}, {
-		key: 'componentWillUnmount',
-		value: function componentWillUnmount() {
-			this.props.resetCreateSuccess();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(_CreatePatientRequestForm2.default, { plans: this.props.plans, createRequest: this.create, success: this.props.createSuccess, createRequestOk: this.createOk });
-		}
-	}]);
+      this.props.createPatientRequest({
+        dni: patient,
+        age: edad,
+        sex: selectedSex,
+        cie10: diagnosis,
+        complexity: selectedComplexity,
+        healthcareplan: selectedPlan,
+        userCreator: _store2.default.getState().authentication.userId,
+        obs: observation
+      });
+      document.getElementById("dni").value = '';
+      document.getElementById("sexSelect").value = '---Seleccione Sexo---';
+      document.getElementById("edad").value = '';
+      document.getElementById("cie").value = '';
+      document.getElementById("complexitySelect").value = '---Seleccione Complejidad---';
+      document.getElementById("planSelect").value = '---Selecccione Plan---';
+      document.getElementById("obs").value = '';
+    }
+  }, {
+    key: 'createOk',
+    value: function createOk(e) {
+      e.preventDefault();
+      this.props.resetCreateSuccess();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.props.resetCreateSuccess();
+    }
 
-	return CreatePatientRequest;
+    // onChange (event, { newValue }) {
+    //   	this.setState({
+    //     		value: newValue
+    //   	});
+    // 	}
+
+    // onSuggestionsFetchRequested ({ value }) {
+    //   this.setState({
+    //     suggestions: getSuggestions(value)
+    //   });
+    // };
+
+    // // Autosuggest will call this function every time you need to clear suggestions.
+    // onSuggestionsClearRequested ()  {
+    //   this.setState({
+    //     suggestions: []
+    //   });
+    // };
+
+
+  }, {
+    key: 'render',
+    value: function render() {
+      // // const suggestions = this.props.diagnosisSuggest;
+      // // const value       = this.props.valueDiagnosisSuggest;
+      // const { value, suggestions } = this.state;
+      // // Autosuggest will pass through all these props to the input.
+      // const inputProps = {
+      //  		placeholder: 'Type a programming language',
+      //  		value,
+      //  		onChange: this.onChange
+      // };
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_CreatePatientRequestForm2.default, { plans: this.props.plans, createRequest: this.create, success: this.props.createSuccess, createRequestOk: this.createOk })
+      );
+    }
+  }]);
+
+  return CreatePatientRequest;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreatePatientRequest);
+
+/*
+render()
+      		<Autosuggest
+        		onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        		onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        		suggestions={suggestions}
+        		getSuggestionValue={getSuggestionValue}
+        		renderSuggestion={renderSuggestion}
+        		inputProps={inputProps}
+      		/>
+*/
+
+/*
+// Teach Autosuggest how to calculate suggestions for any given input value.
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0 ? [] : languages.filter(lang =>
+    lang.name.toLowerCase().slice(0, inputLength) === inputValue
+  );
+};
+
+// When suggestion is clicked, Autosuggest needs to populate the input
+// based on the clicked suggestion. Teach Autosuggest how to calculate the
+// input value for every given suggestion.
+const getSuggestionValue = suggestion => suggestion.name;
+
+// Use your imagination to render suggestions.
+const renderSuggestion = suggestion => (
+  <div>
+    {suggestion.name}
+  </div>
+);
+
+class Example extends React.Component {
+  constructor() {
+    super();
+
+    // Autosuggest is a controlled component.
+    // This means that you need to provide an input value
+    // and an onChange handler that updates this value (see below).
+    // Suggestions also need to be provided to the Autosuggest,
+    // and they are initially empty because the Autosuggest is closed.
+    this.state = {
+      value: '',
+      suggestions: []
+    };
+  }
+
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
+
+  // Autosuggest will call this function every time you need to update suggestions.
+  // You already implemented this logic above, so just use it.
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
+
+  // Autosuggest will call this function every time you need to clear suggestions.
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  render() {
+    const { value, suggestions } = this.state;
+
+    // Autosuggest will pass through all these props to the input.
+    const inputProps = {
+      placeholder: 'Type a programming language',
+      value,
+      onChange: this.onChange
+    };
+
+    // Finally, render it!
+    return (
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+    );
+  }
+}
+*/
 
 /***/ }),
 /* 316 */
@@ -38452,7 +38656,7 @@ var navBarData = {
 	logo: '/public/img/logo_original.jpg',
 	userType: 'Financiador',
 
-	color: '#1c14a5'
+	color: '#3755bb'
 
 };
 
@@ -39421,6 +39625,7 @@ var ViewViewedPatientRequest = function (_React$Component) {
     key: 'setStateV',
     value: function setStateV(idPatient, state) {
       this.props.fecthSetPatientState(idPatient, state);
+      this.props.fetchGetPatientsByState('Visto');
     }
   }, {
     key: 'openModal',
@@ -39519,6 +39724,10 @@ var _TableViewReport = __webpack_require__(276);
 
 var _TableViewReport2 = _interopRequireDefault(_TableViewReport);
 
+var _TableViewReportHospital = __webpack_require__(506);
+
+var _TableViewReportHospital2 = _interopRequireDefault(_TableViewReportHospital);
+
 var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -39560,6 +39769,10 @@ var ViewReport = function (_React$Component) {
         _this.setState = _this.setState.bind(_this);
         return _this;
     }
+
+    // componentWillMount() {
+    // this.props.fecthHistoricalPatients(null, null, null, null)
+    // }
 
     _createClass(ViewReport, [{
         key: 'getPatients',
@@ -39625,9 +39838,9 @@ var ViewReport = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var patients = this.props.patientsData && this.props.patientsData.length > 0 ? _react2.default.createElement(_TableViewReport2.default, {
-                patientsList: this.props.patientsData
-            }) : null;
+            var hospitalId = _store2.default.getState().authentication.institucionCode;
+            var typeUser = _store2.default.getState().authentication.userType;
+            var patients = this.props.patientsData && this.props.patientsData.length > 0 ? typeUser == 'Hospital' ? _react2.default.createElement(_TableViewReportHospital2.default, { patientsList: this.props.patientsData, hospitalId: hospitalId }) : _react2.default.createElement(_TableViewReport2.default, { patientsList: this.props.patientsData }) : null;
             var btnExcel = this.props.patientsData && this.props.patientsData.length > 0 ? _react2.default.createElement(
                 'button',
                 { title: 'Generar Excel', type: 'button', className: 'btn btn-success', style: tabButton,
@@ -39638,44 +39851,57 @@ var ViewReport = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'form',
-                    { className: 'form-inline' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Desde'
-                        ),
-                        _react2.default.createElement('input', { type: 'date', className: 'form-control', id: 'dateFrom', style: tabButton })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group', style: tabButton },
-                        _react2.default.createElement(
-                            'label',
-                            { style: tabButton },
-                            'Hasta'
-                        ),
-                        _react2.default.createElement('input', { type: 'date', className: 'form-control', id: 'dateTo', style: tabButton })
-                    ),
-                    _react2.default.createElement(
-                        'button',
-                        { onClick: this.getPatients.bind(this), className: 'btn btn-default', style: tabButton },
-                        'Buscar'
-                    ),
-                    _react2.default.createElement(
-                        'button',
-                        { onClick: this.clean.bind(this), className: 'btn btn-default', style: tabButton },
-                        'Limpiar'
-                    ),
-                    btnExcel
-                ),
-                _react2.default.createElement(
                     'div',
-                    null,
-                    patients
+                    { className: 'container container_a' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-xs-8 col-sm-6 col-lg-10 ' },
+                            _react2.default.createElement(
+                                'form',
+                                { className: 'form-inline' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'form-group' },
+                                    _react2.default.createElement(
+                                        'label',
+                                        null,
+                                        'Desde'
+                                    ),
+                                    _react2.default.createElement('input', { type: 'date', className: 'form-control', id: 'dateFrom', style: tabButton })
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'form-group', style: tabButton },
+                                    _react2.default.createElement(
+                                        'label',
+                                        { style: tabButton },
+                                        'Hasta'
+                                    ),
+                                    _react2.default.createElement('input', { type: 'date', className: 'form-control', id: 'dateTo', style: tabButton })
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.getPatients.bind(this), className: 'btn btn-default', style: tabButton },
+                                    'Buscar'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.clean.bind(this), className: 'btn btn-default', style: tabButton },
+                                    'Limpiar'
+                                ),
+                                btnExcel
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                patients
+                            )
+                        )
+                    )
                 )
             );
         }
@@ -39907,6 +40133,7 @@ function formReducers() {
 
   switch (action.type) {
     case 'USER_IS_LOGGED_OUT_FR':
+      console.log('USER_IS_LOGGED_OUT_FR');
       return Object.assign({}, state, {
         isRequesting: false,
         createSuccess: false,
@@ -40187,6 +40414,7 @@ function patientRequestReducers() {
     pendingList: [],
     matchedList: [],
     diagnosis: []
+    // valueDiagnosisSuggest:''
   };
   var action = arguments[1];
 
@@ -40449,7 +40677,7 @@ exports = module.exports = __webpack_require__(92)(undefined);
 
 
 // module
-exports.push([module.i, "/*Login*/\r\n\r\nselect.form-control:not([size]):not([multiple]) {\r\n    height: auto;\r\n}\r\n\r\n\r\n.container_a {\r\n  top: 200px;\r\n}\r\n\r\n/*.portada {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background-size: 100%;\r\n    background-repeat: no-repeat;\r\n    opacity: 0.6;\r\n    position: absolute;\r\n    z-index: -9999\r\n}*/\r\n\r\n/*#button{\r\n\tbackground: white;\r\n\tborder-color: lightgrey;\r\n\tcolor: gray;\r\n\tdisplay: block;\r\n    margin: 10px auto;\r\n}*/\r\n#a {\r\n    color: #777;\r\n    font-size: 13px;\r\n}\r\n\r\n#a1 {\r\n    top:180px;\r\n\r\n}\r\n\r\n/*.aa {\r\n   fondo. Esperar.\r\n}*/\r\n\r\n/*#bb {\r\n    background-color: #e7e7e7;\r\n    color: black;\r\n    display: block;\r\n    margin: 30px auto;\r\n}*/\r\n\r\n/*#bb:hover {\r\n    background-color: #777;\r\n    color: black;\r\n    display: block;\r\n    margin: 10px auto;\r\n}*/\r\n\r\n/*BedinNavbar*/\r\n\r\n\r\n#a3{\r\n\r\n    width: 65px;\r\n    height: 35px;\r\n    position: relative;\r\n    top: -10px;\r\n    left: 10px;\r\n}\r\n\r\n/*Merge*/\r\n\r\n\r\n#b3{\r\n\r\n    margin-right: 50px;\r\n    margin-left: 50px;\r\n    padding-left: 50px;\r\n    padding-right: 50px;\r\n    margin-top: 0px;\r\n    border-top-width: -;\r\n    padding-top: -;\r\n    border-radius: 25px;\r\n    position: relative;\r\n    top: 10px;\r\n}\r\n\r\n#c3{ color: black;}\r\n\r\n#e3 { font-size: 11px;}\r\n\r\n\r\n#f3 { margin-right: 5px;}\r\n\r\n\r\n/*#buttom {\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.btn-default { background-color: #e3e7e5;}*/\r\n\r\n\r\n\r\n/*#d3 > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 15px 20px;\r\n    font-weight: bold;\r\n}\r\n\r\n.active {\r\n        color: #2aa0c2 !important;\r\n        font-size: 16px !important;\r\n        font-weight: bold !important;\r\n\r\n}*/\r\n\r\n\r\n/*\r\n#bbb{\r\n    background-color: lightyellow;\r\n}*/\r\n\r\n/*#aaa{\r\n    background-color: lightgreen;\r\n}*/\r\n\r\n/*FinanciadorHome*/\r\n\r\n.a4 {\r\n    padding:8px;\r\n    background:white;\r\n    margin-right:4px;\r\n\r\n\r\n}\r\n\r\n.b4 { padding: 1px 15px 3px 2px;}\r\n\r\n#c4 {\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n    width: 200px;\r\n    text-align: left;\r\n}\r\n\r\n#c4a{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-left: 55px;\r\n    width: 200px;\r\n    text-align: left;\r\n\r\n}\r\n\r\n/*.d4 { margin-top: 100px; }*/\r\n\r\n.e4 { margin-left: 30px; }\r\n\r\n/*FinanciadorFormStep1*/\r\n\r\n#b1 {\r\n    margin-bottom: 20px;\r\n    margin-left: 90px;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n}\r\n\r\n/*#c1 {\r\n     float: right;\r\n\r\n}*/\r\n\r\n#e1{\r\n    position: relative;\r\n    left: 10px;\r\n}\r\n\r\n#f1 {\r\n    height: 250px;\r\n\r\n}\r\n\r\n#g1{\r\n    height: 15%;\r\n    margin-left: 35%;\r\n}\r\n\r\n/*FinanciadorFormStep2*/\r\n\r\n\r\n\r\n.row {\r\n    margin-top: 10px;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n/*Merge*\r\n\r\n#th {\r\n\r\n     background-color: #fbfbfb;\r\n\r\n     }\r\n\r\n#a {\r\n    background-color: rgba(250, 250, 250, 0.90);\r\n    width: 300px;\r\n    height: 400px;\r\n    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);\r\n    border-radius: 20px;\r\n    padding: 35px;\r\n    padding-top: 30px;\r\n    margin: 8px;\r\n   overflow: auto;\r\n}\r\n\r\n#b { margin-bottom: 40px; }\r\n\r\n#c { padding: 1px; }\r\n\r\n#d {\r\n    margin-top: 40px;\r\n    margin-left: 140px;\r\n}\r\n\r\n\r\n\r\n#f {\r\n    background-color: rgba(250, 250, 250, 0.89);\r\n    width: 300px;\r\n    height: 400px;\r\n    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);\r\n    border-radius: 20px;\r\n    margin: 8px;\r\n    padding: 25px;\r\n    padding-top: 25px;\r\n    overflow: auto;\r\n}\r\n\r\n.g {\r\n\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    border-spacing: 5px;\r\n    empty-cells: hide;\r\n    border-collapse: separate;\r\n    width: 250px;\r\n    box-shadow: 0 4px 4px 4 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\r\n    text-align: center;\r\n    height: 350px;\r\n}\r\n\r\n\r\n\r\n#l{\r\n    color: black;\r\n    text-align: center;\r\n    margin-top: 5%;\r\n}\r\n\r\n\r\n\r\n/*TableDataFinanciador*/\r\n\r\n.a6{\r\n\r\n    border-width: 1px;\r\n    border-color: black;\r\n    border-style: solid;\r\n    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.b6 {\r\n\r\n    background-color: #31b0d5;\r\n    color: white;\r\n }\r\n\r\n/*OpcionaHome*/\r\n\r\n/*.oh {\r\n    background-color: #e9ebee;\r\n\r\n}*/\r\n\r\n/*opcionHome*/\r\n\r\n#a7{\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n\r\n\r\n}\r\n\r\n#b7{\r\n\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n}\r\n\r\n#c7{\r\n\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n}\r\n\r\n\r\n\r\n/*Nueva Navbar*/\r\n\r\nbody {\r\n    font-family: 'Montserrat', sans-serif;\r\n}\r\n\r\n#header-container {\r\n\r\n    color: white;\r\n}\r\n\r\n#login {\r\n    color: white;\r\n}\r\n\r\n#menu-container {\r\n    background-color: #f7f7f9;\r\n}\r\n\r\n\r\n/*      .row {\r\n    border: 1px solid black;\r\n}\r\n\r\n.columna { \r\n    border: 1px solid black;\r\n }*/\r\n\r\n/*div {\r\n\r\n    border: 1px solid black;\r\n\r\n}*/\r\n\r\n\r\n.nav-icn {\r\n   color: white;\r\n\r\n}\r\n\r\n\r\n#aLog:focus {\r\n    background-color: rgba(247, 247, 249, 0.3);\r\n}\r\n\r\n#aLog:hover {\r\n    background-color: rgba(247, 247, 249, 0.3);\r\n}\r\n\r\n#bLog{\r\n    background-color: rgba(247, 247, 249, 0.39);\r\n    border-radius: 10px;\r\n    \r\n\r\n\r\n}\r\n\r\n#color{\r\n    color: black;\r\n\r\n}\r\n\r\n#color:hover{\r\n/*    background-color: rgba(0, 0, 0, 0.19);*/\r\n    background-color: lightgrey;\r\n}\r\n\r\ninput[type=number]::-webkit-outer-spin-button,\r\ninput[type=number]::-webkit-inner-spin-button {\r\n   -webkit-appearance: none;\r\n   margin: 0;\r\n}\r\n\r\ninput[type=number] {\r\n   -moz-appearance:textfield;\r\n}\r\n\r\n#newbtn{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n    width: 100px;\r\n    float: right;\r\n}\r\n\r\n#newbtn:focus{\r\n    border-color: #555;\r\n  \r\n  \r\n}\r\n\r\n#newbtn1 { \r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-right: 15%;\r\n    width: 100px;\r\n    float: right;\r\n }\r\n\r\n #spinner{\r\n    position: absolute;\r\n    left: 725px;\r\n    top: 260px;\r\n }\r\n\r\n#modal {\r\n    display: block;\r\n    position:absolute;\r\n    top: 200px;\r\n    \r\n}\r\n\r\n#modal-backdrop {\r\n    background-color: #000;\r\n    opacity: 0.6;\r\n}\r\n\r\n#newbtn11 { \r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-right: 2%;\r\n    width: 150px;\r\n    float: right;\r\n    color: black;\r\n   \r\n }\r\n\r\n/* opcionalHomeFinanciador*/\r\n\r\n#c4a1{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-left: 50px;\r\n    width: 230px;\r\n    text-align: left;\r\n    background-color: #de3e98;\r\n    border-color: #de3e98;\r\n\r\n}\r\n\r\n#b71{\r\n\r\n    background-color: #ff6bbf;\r\n    height: 400px;\r\n    width: 330px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n    color: #ff6bbf;\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n", ""]);
+exports.push([module.i, "/*Loge1n*/\r\n\r\nselect.form-control:not([size]):not([multiple]) {\r\n    height: auto;\r\n}\r\n\r\n\r\n.container_a {\r\n  top: 200px;\r\n}\r\n\r\n/*.portada {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background-size: 100%;\r\n    background-repeat: no-repeat;\r\n    opacity: 0.6;\r\n    position: absolute;\r\n    z-index: -9999\r\n}*/\r\n\r\n/*#button{\r\n\tbackground: white;\r\n\tborder-color: lightgrey;\r\n\tcolor: gray;\r\n\tdisplay: block;\r\n    margin: 10px auto;\r\n}*/\r\n#a {\r\n    color: #777;\r\n    font-size: 13px;\r\n}\r\n\r\n#a1 {\r\n    top:180px;\r\n\r\n}\r\n\r\n/*.aa {\r\n   fondo. Esperar.\r\n}*/\r\n\r\n/*#bb {\r\n    background-color: #e7e7e7;\r\n    color: black;\r\n    display: block;\r\n    margin: 30px auto;\r\n}*/\r\n\r\n/*#bb:hover {\r\n    background-color: #777;\r\n    color: black;\r\n    display: block;\r\n    margin: 10px auto;\r\n}*/\r\n\r\n/*BedinNavbar*/\r\n\r\n\r\n#a3{\r\n\r\n    width: 65px;\r\n    height: 35px;\r\n    position: relative;\r\n    top: -10px;\r\n    left: 10px;\r\n}\r\n\r\n/*Merge*/\r\n\r\n\r\n#b3{\r\n\r\n    margin-right: 50px;\r\n    margin-left: 50px;\r\n    padding-left: 50px;\r\n    padding-right: 50px;\r\n    margin-top: 0px;\r\n    border-top-width: -;\r\n    padding-top: -;\r\n    border-radius: 25px;\r\n    position: relative;\r\n    top: 10px;\r\n}\r\n\r\n#c3{ color: black;}\r\n\r\n#e3 { font-size: 11px;}\r\n\r\n\r\n#f3 { margin-right: 5px;}\r\n\r\n\r\n/*#buttom {\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.btn-default { background-color: #e3e7e5;}*/\r\n\r\n\r\n\r\n/*#d3 > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 15px 20px;\r\n    font-weight: bold;\r\n}\r\n\r\n.active {\r\n        color: #2aa0c2 !important;\r\n        font-size: 16px !important;\r\n        font-weight: bold !important;\r\n\r\n}*/\r\n\r\n\r\n/*\r\n#bbb{\r\n    background-color: lightyellow;\r\n}*/\r\n\r\n/*#aaa{\r\n    background-color: lightgreen;\r\n}*/\r\n\r\n/*FinanciadorHome*/\r\n\r\n.a4 {\r\n    padding:8px;\r\n    background:white;\r\n    margin-right:4px;\r\n\r\n\r\n}\r\n\r\n.b4 { padding: 1px 15px 3px 2px;}\r\n\r\n#c4 {\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n \r\n    width: 200px;\r\n    text-align: left;\r\n}\r\n\r\n#c4a{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n /*  margin-left: 10%;*/\r\n    width: 200px;\r\n    text-align: left;\r\n\r\n}\r\n\r\n/*.d4 { margin-top: 100px; }*/\r\n\r\n.e4 { margin-left: 30px; }\r\n\r\n/*FinanciadorFormStep1*/\r\n\r\n/*#b1 {\r\n    margin-bottom: 20px;\r\n    margin-left: 90px;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n}*/\r\n\r\n/*#c1 {\r\n     float: right;\r\n\r\n}*/\r\n\r\n#e1{\r\n    display: inline;    \r\n}\r\n\r\n#f1 {\r\n    height: 250px;\r\n\r\n}\r\n\r\n#g1{\r\n    height: 15%;\r\n    margin-left: 35%;\r\n}\r\n\r\n/*FinanciadorFormStep2*/\r\n\r\n\r\n\r\n.row {\r\n    margin-top: 10px;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n/*Merge*\r\n\r\n#th {\r\n\r\n     background-color: #fbfbfb;\r\n\r\n     }\r\n\r\n#a {\r\n    background-color: rgba(250, 250, 250, 0.90);\r\n    width: 300px;\r\n    height: 400px;\r\n    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);\r\n    border-radius: 20px;\r\n    padding: 35px;\r\n    padding-top: 30px;\r\n    margin: 8px;\r\n   overflow: auto;\r\n}\r\n\r\n#b { margin-bottom: 40px; }\r\n\r\n#c { padding: 1px; }\r\n\r\n#d {\r\n    margin-top: 40px;\r\n    margin-left: 140px;\r\n}\r\n\r\n\r\n\r\n#f {\r\n    background-color: rgba(250, 250, 250, 0.89);\r\n    width: 300px;\r\n    height: 400px;\r\n    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);\r\n    border-radius: 20px;\r\n    margin: 8px;\r\n    padding: 25px;\r\n    padding-top: 25px;\r\n    overflow: auto;\r\n}\r\n\r\n.g {\r\n\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    border-spacing: 5px;\r\n    empty-cells: hide;\r\n    border-collapse: separate;\r\n    width: 250px;\r\n    box-shadow: 0 4px 4px 4 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\r\n    text-align: center;\r\n    height: 350px;\r\n}\r\n\r\n\r\n\r\n#l{\r\n    color: black;\r\n    text-align: center;\r\n    margin-top: 5%;\r\n}\r\n\r\n\r\n\r\n/*TableDataFinanciador*/\r\n\r\n.a6{\r\n\r\n    border-width: 1px;\r\n    border-color: black;\r\n    border-style: solid;\r\n    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.b6 {\r\n\r\n    background-color: #f7f7f9;\r\n    color: black;\r\n }\r\n\r\n/*OpcionaHome*/\r\n\r\n/*.oh {\r\n    background-color: #e9ebee;\r\n\r\n}*/\r\n\r\n/*opcionHome*/\r\n\r\n#a7{\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n    min-width: 235px;\r\n /*   max-width: 300px;*/\r\n   \r\n\r\n\r\n}\r\n\r\n#b7{\r\n\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n    min-width: 235px;\r\n   /* max-width: 300px;*/\r\n}\r\n\r\n#c7{\r\n\r\n    background-color: #c3e0f9;\r\n    height: 400px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n    min-width: 235px;\r\n/*    max-width: 300px;*/\r\n}\r\n\r\n\r\n\r\n/*Nueva Navbar*/\r\n\r\nbody {\r\n    font-family: 'Montserrat', sans-serif;\r\n}\r\n\r\n#header-container {\r\n\r\n    color: white;\r\n}\r\n\r\n#login {\r\n    color: white;\r\n}\r\n\r\n#menu-container {\r\n    background-color: #f7f7f9;\r\n}\r\n\r\n\r\n/*      .row {\r\n    border: 1px solid black;\r\n}\r\n\r\n.columna { \r\n    border: 1px solid black;\r\n }*/\r\n\r\n/*div {\r\n\r\n    border: 1px solid black;\r\n\r\n}*/\r\n\r\n\r\n.nav-icn {\r\n   color: white;\r\n\r\n}\r\n\r\n\r\n#aLog:focus {\r\n    background-color: rgba(247, 247, 249, 0.3);\r\n}\r\n\r\n#aLog:hover {\r\n    background-color: rgba(247, 247, 249, 0.3);\r\n}\r\n\r\n#bLog{\r\n    background-color: rgba(247, 247, 249, 0.39);\r\n    border-radius: 10px;\r\n    \r\n\r\n\r\n}\r\n\r\n#color{\r\n    color: black;\r\n\r\n}\r\n\r\n#color:hover{\r\n/*    background-color: rgba(0, 0, 0, 0.19);*/\r\n    background-color: lightgrey;\r\n}\r\n\r\ninput[type=number]::-webkit-outer-spin-button,\r\ninput[type=number]::-webkit-inner-spin-button {\r\n   -webkit-appearance: none;\r\n   margin: 0;\r\n}\r\n\r\ninput[type=number] {\r\n   -moz-appearance:textfield;\r\n}\r\n\r\n#newbtn{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n    width: 100px;\r\n    float: right;\r\n}\r\n\r\n#newbtn:focus{\r\n    border-color: #555;\r\n  \r\n  \r\n}\r\n\r\n#newbtn1 { \r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-right: 15%;\r\n    width: 100px;\r\n    float: right;\r\n }\r\n\r\n #spinner{\r\n    position: absolute;\r\n    left: 725px;\r\n    top: 260px;\r\n }\r\n\r\n#modal {\r\n    display: block;\r\n    position:absolute;\r\n    top: 200px;\r\n    \r\n}\r\n\r\n#modal-backdrop {\r\n    background-color: #000;\r\n    opacity: 0.6;\r\n}\r\n\r\n#newbtn11 { \r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    margin-right: 2%;\r\n    width: 150px;\r\n    float: right;\r\n    color: black;\r\n   \r\n }\r\n\r\n/* opcionalHomeFinanciador*/\r\n\r\n#c4a1{\r\n    border-radius:10px;\r\n    margin-top: 10px;\r\n    \r\n    width: 230px;\r\n    text-align: left;\r\n    background-color: #de3e98;\r\n    border-color: #de3e98;\r\n\r\n}\r\n\r\n#b71{\r\n\r\n    background-color: #ff6bbf;\r\n    height: 400px;\r\n    width: 330px;\r\n    border-width: 1.5px;\r\n    border-radius: 20px;\r\n    margin-bottom: 10%;\r\n    padding-top:5%;\r\n    color: #ff6bbf;\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n\r\n#glyphicon-p {\r\n    color: #a90863 !important;\r\n\r\n}\r\n/*\r\ndiv {\r\n     border: 1px solid black\r\n}\r\n*/\r\n.flexItems {\r\n    display: flex; \r\n    flex-direction:column;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    \r\n}\r\n\r\n.flexItemss {\r\n    display: flex; \r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    \r\n}", ""]);
 
 // exports
 
@@ -56678,6 +56906,260 @@ __webpack_require__(270);
 __webpack_require__(272);
 module.exports = __webpack_require__(269);
 
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var tableStyle = { border: "1px solid grey" };
+var tableStyle1 = { border: "1px solid grey", backgroundColor: "#E7E7CF" };
+var marginLeft = { marginLeft: "50%" };
+var marginLeftBtn = { marginLeft: "5px" };
+
+function ViewTableReport(props) {
+	var formattedDate = function formattedDate(date) {
+		return (0, _moment2.default)(date).format('DD/MM/YYYY || HH:mm:ss');
+	};
+	var buildAnswer = function buildAnswer() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+		return listRequest.map(function (request) {
+			return props.hospitalId === request.hospital._id && request.userHospital ? _react2.default.createElement(
+				'p',
+				null,
+				request.state,
+				' (',
+				request.userHospital.name,
+				')'
+			) : null;
+		});
+	};
+	var buildDateAnswer = function buildDateAnswer() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+		return listRequest.map(function (request) {
+			return props.hospitalId === request.hospital._id && request.updatedDate ? _react2.default.createElement(
+				'p',
+				null,
+				formattedDate(request.updatedDate)
+			) : null;
+		});
+	};
+	var buildConfirm = function buildConfirm() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+		return listRequest.map(function (request) {
+			return request.matchedDate && props.hospitalId === request.hospital._id ? _react2.default.createElement(
+				'p',
+				null,
+				'SI'
+			) : null;
+		});
+	};
+	var buildDateConfirm = function buildDateConfirm() {
+		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+		return listRequest.map(function (request) {
+			return props.hospitalId === request.hospital._id && request.matchedDate ? _react2.default.createElement(
+				'p',
+				null,
+				formattedDate(request.matchedDate)
+			) : null;
+		});
+	};
+	var tableBody = props.patientsList.map(function (patient, i) {
+		return _react2.default.createElement(
+			'tr',
+			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id },
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.healthcare.name
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.dni
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.age
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.sex
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.cie10
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.complexity
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.healthcareplan.name
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				formattedDate(patient.dateCreated)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				buildAnswer(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				buildDateAnswer(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				buildConfirm(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				buildDateConfirm(patient.hospitalsAndState)
+			),
+			_react2.default.createElement(
+				'td',
+				null,
+				patient.obs
+			)
+		);
+	});
+	var setRowColor = function setRowColor(color) {
+		return { backgroundColor: color };
+	};
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			'div',
+			{ className: 'container container_a' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-xs-8 col-sm-6 col-lg-10 ', id: 'table_wrapper' },
+					_react2.default.createElement(
+						'table',
+						{ style: { border: "1px solid grey" }, className: 'table' },
+						_react2.default.createElement(
+							'thead',
+							{ style: { border: "1px solid grey" } },
+							_react2.default.createElement(
+								'tr',
+								{ style: Object.assign({}, setRowColor('lightgrey')) },
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Solicitante'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Paciente'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Edad'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Sexo'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Diagn\xF3stico'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Complejidad'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Plan'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Fecha creaci\xF3n'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Respuesta'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Fecha respuesta'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Confirmado'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Fecha confirmaci\xF3n'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Comentario'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							tableBody
+						)
+					)
+				)
+			)
+		)
+	);
+}
+
+exports.default = ViewTableReport;
 
 /***/ })
 /******/ ]);
