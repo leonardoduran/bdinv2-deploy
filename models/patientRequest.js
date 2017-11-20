@@ -23,8 +23,40 @@ const patientRequest = new mongoose.Schema({
     updatedDate: {type: Date, default: null},
     userHospital: {type: ObjectId, ref: 'users', default: null},
     matchedDate: {type: Date, default: null},
-    userFinanciador: {type: ObjectId, default: null, ref:'users'}
+    userFinanciador: {type: ObjectId, default: null, ref:'users'},
+    
+    // gridState : {type: String, default: 'N'} 
+// OPCION 1 (van a faltar estados intermedios, por ej: aceptada x el hospital, pero aun no refrescada en la vista de aceptados por otro usuario)
+    // null: Generada la solicitud, aún no vista por el hospital (ni recibida)
+    // h   : Vista por el hospital (recibida)
+    // a   : Aceptada por el hospital, aun no vista por el financiador  (ni recibida)
+    // f   : Vista por el financiador (recibida)
+    // c   : Confirmada por el financiador, aun no vista por el hospital (ni recibida)
+    // t   : Terminada (ya recibida por el hospital)
+
+
+// Hospital: ejecuta un fetch para ver el gridState de la solicitud
+
+// Pending: si hay un null -> ejecuta fetch a la BD y refresca grilla
+// Acepted: si hay un null -> ejecuta fetch a la BD y refresca grilla
+// Rejected:
+// Viewed:
+
+// OPCION 2 (por cada "instancia" sólo ejecuta el fetch para la solicitud, si está N).
+// Al mismo filtro que ejecuta hoy para cada grilla, le agrego el gridState='N'
+  // N : No visto
+  // V :  Visto
+
   }],
+
+// OPCION 3 (Un array por cada estado con los usuarios que lo vieron)
+  userHospitalViewPendig:     [{type: ObjectId, ref: 'users', default: null}],
+  userHospitalViewAcepted:    [{type: ObjectId, ref: 'users', default: null}],
+  userHospitalViewRejected:   [{type: ObjectId, ref: 'users', default: null}],
+  userHospitalViewViewed:     [{type: ObjectId, ref: 'users', default: null}],
+  userFinanciadorViewCreated: [{type: ObjectId, ref: 'users', default: null}],
+  userFinanciadorViewAcepted: [{type: ObjectId, ref: 'users', default: null}],
+
   dateCreated: { type: Date, default: moment},
   timeout: {type: Boolean, default: false},
   userCreator: {type: ObjectId, ref: 'users', default: null},

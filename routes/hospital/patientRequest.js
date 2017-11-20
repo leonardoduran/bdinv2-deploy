@@ -2,6 +2,7 @@ const express = require('express');
 const app = express.Router();
 const patientRequest = require('../../models/patientRequest');
 const errorHandler = require('../../controladores/errorHandler');
+const check = require ('../../controladores/hospitals');
 const moment = require('moment');
 const setPatientState = (idPatient, user, state) => {
     const p = new Promise ((resolve,reject) => {
@@ -17,7 +18,73 @@ const setPatientState = (idPatient, user, state) => {
     })
     return p;
 }
-app.get('/', function(req,res) {
+
+// function check(htal,user){
+//     console.log("FC CHECK!")
+// }
+
+// function check(htal,user){ 
+//     patientRequest.updateMany(
+//         {
+//             hospitalsAndState: {
+//                 $elemMatch: {
+//                     hospital: htal,
+//                     state: null,
+//                     }
+//             },
+//             isConfirm: false,
+//             timeout: false,
+//             userHospitalViewPendig : {"$ne": user}
+
+//         },
+
+//         { $push: { 
+//                     userHospitalViewPendig : user
+//                 } 
+//         }
+//     )
+//     .then(data => {console.log("Fin fc"); return data.nModified})
+//     .catch(error => {errorHandler.sendInternalServerError(error)});
+// }
+
+// app.get('/check', function(req,res) {
+//     let htalCode;
+//     let userId;
+//     let cantidad;
+//     htalCode=req.user.hospitalCode;
+//     userId=req.user._id;
+//     cantidad=check(htalCode,userId);
+//     res.send({cantidad: cantidad})
+// })
+
+app.get('/check',function(req,res) {
+    patientRequest.updateMany(
+        {
+            hospitalsAndState: {
+                $elemMatch: {
+                    hospital: req.user.hospitalCode,
+                    state: null,
+                    }
+            },
+            isConfirm: false,
+            timeout: false,
+            userHospitalViewPendig : {"$ne": req.user._id}
+
+        },
+
+        { $push: { 
+                    userHospitalViewPendig : req.user._id
+                } 
+        }
+    )
+    .then(data => {
+                    res.send({cantidad: data.nModified})
+                    }
+        )
+    .catch(error => {console.log(error); errorHandler.sendInternalServerError(error)});
+})
+
+app.get('/',check.checkHospitals, function(req,res) {
     patientRequest.find(
         {
             hospitalsAndState: {
@@ -37,6 +104,7 @@ app.get('/', function(req,res) {
     .then(data => res.send(data))
     .catch(error => {console.log(error); errorHandler.sendInternalServerError(res)});
 })
+
 app.put('/', function(req,res) {
     setPatientState(req.body.idPatientRequest, req.user, req.body.state)
     .then(saveData => res.send(saveData))

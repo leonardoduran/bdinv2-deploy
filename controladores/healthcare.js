@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express.Router();
-const moment = require('moment');
+const moment = require('moment'); 
 const patientRequest = require('../models/patientRequest');
 const errorHandler = require('./errorHandler');
 module.exports = {
     
     setPatientTimeOut: function() {
-        const endTime = 15;
+        const endTime = 300; // 300 minutos
         setInterval(() => {
             patientRequest.find({
             'sentTo.hospital' : null,

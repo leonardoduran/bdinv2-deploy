@@ -12,7 +12,12 @@ module.exports = {
 		if(!req.isAuthenticated()) return errorHandler.sendUnauthorized(res); 
 		users.findById(req.user._id)
 		.then(user => { 
-			if (user.type === 'Bedin') return next();
+			if (user.type === 'Bedin') {
+				if (user.instancesLogged)
+					return next();
+				else
+					return errorHandler.sendUnlogged(res);
+			}
 			else return errorHandler.sendUnauthorized(res);
 		})
 		.catch(err => {
@@ -22,10 +27,16 @@ module.exports = {
 	},
 
 	isHospitalUser : (req,res,next) => {
-		if(!req.isAuthenticated()) return errorHandler.sendUnauthorized(res);
+		if(!req.isAuthenticated()) {
+			return errorHandler.sendUnauthorized(res);}
 		users.findById(req.user._id) 
-		.then(user => { 
-			if (user.type === 'Hospital') return next();
+		.then(user => {
+			if (user.type === 'Hospital') {
+				if (user.instancesLogged)
+					return next();
+				else
+					return errorHandler.sendUnlogged(res);
+			}
 			else return errorHandler.sendUnauthorized(res);
 		})
 		.catch(err => {
@@ -37,12 +48,16 @@ module.exports = {
 		if(!req.isAuthenticated()) return errorHandler.sendUnauthorized(res);
 		users.findById(req.user._id)
 		.then(user => { 
-			if (user.type === 'Financiador') return next();
+			if (user.type === 'Financiador') {
+				if (user.instancesLogged)
+					return next();
+				else
+					return errorHandler.sendUnlogged(res);
+			}
 			else return errorHandler.sendUnauthorized(res);
 		})
 		.catch(err => {
 			return errorHandler.sendInternalServerError(res);
 		})
 	}
-
 }
