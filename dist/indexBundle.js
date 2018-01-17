@@ -39959,11 +39959,13 @@ var ViewViewedPatientRequest = function (_React$Component) {
 
     _this.state = {
       modalIsOpen: false,
-      idInterval: null,
+      // idInterval : null,
       patientId: null
-      // this.idInterval = null;
-      // this.modalIsOpen = false;
-    };_this.setStateV = _this.setStateV.bind(_this);
+    };
+    _this.idInterval = null;
+    // this.idInterval = null;
+    // this.modalIsOpen = false;
+    _this.setStateV = _this.setStateV.bind(_this);
     _this.openModal = _this.openModal.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
     _this.sendMessage = _this.sendMessage.bind(_this);
@@ -39976,7 +39978,7 @@ var ViewViewedPatientRequest = function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchGetPatientsByState('Visto');
-      this.state.idInterval = setInterval(function () {
+      this.idInterval = setInterval(function () {
         _this2.props.fetchGetPatientsByState('Visto');
       }, 1000 * 60);
     }
