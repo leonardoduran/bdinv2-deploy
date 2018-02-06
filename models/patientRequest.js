@@ -24,7 +24,7 @@ const patientRequest = new mongoose.Schema({
     userHospital: {type: ObjectId, ref: 'users', default: null},
     matchedDate: {type: Date, default: null},
     userFinanciador: {type: ObjectId, default: null, ref:'users'},
-    
+    reasonReject : { type: ObjectId, default: null, ref: 'reasonsreject'}
     // gridState : {type: String, default: 'N'} 
 // OPCION 1 (van a faltar estados intermedios, por ej: aceptada x el hospital, pero aun no refrescada en la vista de aceptados por otro usuario)
     // null: Generada la solicitud, aún no vista por el hospital (ni recibida)

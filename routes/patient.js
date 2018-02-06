@@ -47,6 +47,7 @@ const moment = require('moment');
   .populate('hospitalsAndState.hospital','name')
   .populate('hospitalsAndState.userHospital','name')
   .populate('hospitalsAndState.userFinanciador','name')
+  .populate('hospitalsAndState.reasonReject','reason')
   .populate('userCreator','name')
   .populate('messages.hospitalId','name')
   .populate('messages.userId','name')

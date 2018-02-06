@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express.Router();
 const patientRequest = require('../../models/patientRequest');
+const reasonReject = require('../../models/reasonsreject');
 const errorHandler = require('../../controladores/errorHandler');
 const check = require ('../../controladores/hospitals');
 const moment = require('moment');
-const setPatientState = (idPatient, user, state) => {
+const setPatientState = (idPatient, user, state, mot) => {
     const p = new Promise ((resolve,reject) => {
         patientRequest.findById(idPatient)
         .then(patientRequestData => {
@@ -13,6 +14,7 @@ const setPatientState = (idPatient, user, state) => {
             selectHospital.state = state;
             selectHospital.updatedDate = Date.now();
             selectHospital.userHospital = user._id;
+            selectHospital.reasonReject = mot;
             resolve(patientRequestData.save())
         })
     })
@@ -56,6 +58,17 @@ const setPatientState = (idPatient, user, state) => {
 //     cantidad=check(htalCode,userId);
 //     res.send({cantidad: cantidad})
 // })
+
+app.get('/reasonsReject',function(req,res) {
+  reasonReject.find({})
+  .then(reasons =>{
+    res.send(reasons);
+  })
+  .catch(err => {
+    return errorHandler.sendInternalServerError(res);
+  })
+})
+
 
 app.get('/check',function(req,res) {
     patientRequest.updateMany(
@@ -106,7 +119,7 @@ app.get('/',check.checkHospitals, function(req,res) {
 })
 
 app.put('/', function(req,res) {
-    setPatientState(req.body.idPatientRequest, req.user, req.body.state)
+    setPatientState(req.body.idPatientRequest, req.user, req.body.state,req.body.mot)
     .then(saveData => res.send(saveData))
     .catch(error => {console.log(error); errorHandler.sendInternalServerError(res)})
 })
@@ -164,6 +177,7 @@ app.get('/:state', function(req,res) {
     .populate('healthcareplan', 'name')
     .populate('healthcare', 'name')
     .populate('hospitalsAndState.userHospital', 'name username')
+    .populate('hospitalsAndState.reasonReject','reason')
     .sort({dateCreated: -1})
     .exec()
     .then(patientRequestData => {
