@@ -5306,65 +5306,6 @@ module.exports = ExecutionEnvironment;
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  }
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        'Minified exception occurred; use the non-minified dev environment ' +
-        'for the full error message and additional helpful warnings.'
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-};
-
-module.exports = invariant;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5451,6 +5392,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+module.exports = invariant;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 13 */
@@ -5972,7 +5972,7 @@ var CallbackQueue = __webpack_require__(219);
 var PooledClass = __webpack_require__(25);
 var ReactFeatureFlags = __webpack_require__(224);
 var ReactReconciler = __webpack_require__(31);
-var Transaction = __webpack_require__(51);
+var Transaction = __webpack_require__(52);
 
 var invariant = __webpack_require__(3);
 
@@ -7781,7 +7781,7 @@ var _reduxMulti2 = _interopRequireDefault(_reduxMulti);
 
 var _reactRouterRedux = __webpack_require__(249);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _index = __webpack_require__(331);
 
@@ -7821,7 +7821,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _invariant = __webpack_require__(11);
+var _invariant = __webpack_require__(12);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -7831,7 +7831,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _PathUtils = __webpack_require__(21);
 
-var _Actions = __webpack_require__(46);
+var _Actions = __webpack_require__(47);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7924,7 +7924,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 
 var DOMNamespaces = __webpack_require__(68);
-var setInnerHTML = __webpack_require__(53);
+var setInnerHTML = __webpack_require__(54);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(75);
 var setTextContent = __webpack_require__(238);
@@ -8206,7 +8206,7 @@ module.exports = ReactReconciler;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* unused harmony export compilePattern */
 /* harmony export (immutable) */ __webpack_exports__["c"] = matchPattern;
@@ -8806,7 +8806,7 @@ function logoutFetch() {
 
 var _prodInvariant = __webpack_require__(5);
 
-var EventPluginRegistry = __webpack_require__(48);
+var EventPluginRegistry = __webpack_require__(49);
 var EventPluginUtils = __webpack_require__(69);
 var ReactErrorUtils = __webpack_require__(73);
 
@@ -9324,6 +9324,25 @@ module.exports = SyntheticUIEvent;
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Modal = __webpack_require__(443);
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Modal2.default;
+
+/***/ }),
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9356,7 +9375,7 @@ var route = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prop_types__["oneO
 var routes = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prop_types__["oneOfType"])([route, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prop_types__["arrayOf"])(route)]);
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9370,7 +9389,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9393,7 +9412,7 @@ function LargeButton(props) {
 exports.default = LargeButton;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9658,7 +9677,7 @@ function sendMessageTo(patientId, hospitalId, userId, message) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9767,7 +9786,7 @@ function fetchChangePassword(oldPassword, newPassword) {
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9793,7 +9812,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9821,7 +9840,7 @@ var REPLACE = exports.REPLACE = 'REPLACE';
 var POP = exports.POP = 'POP';
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9876,7 +9895,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 };
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10135,7 +10154,7 @@ module.exports = EventPluginRegistry;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10153,7 +10172,7 @@ module.exports = EventPluginRegistry;
 
 var _assign = __webpack_require__(8);
 
-var EventPluginRegistry = __webpack_require__(48);
+var EventPluginRegistry = __webpack_require__(49);
 var ReactEventEmitterMixin = __webpack_require__(405);
 var ViewportMetrics = __webpack_require__(230);
 
@@ -10464,7 +10483,7 @@ var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
 module.exports = ReactBrowserEventEmitter;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10541,7 +10560,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 module.exports = SyntheticMouseEvent;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10775,7 +10794,7 @@ module.exports = TransactionImpl;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10902,7 +10921,7 @@ function escapeTextContentForBrowser(text) {
 module.exports = escapeTextContentForBrowser;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11005,25 +11024,6 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = setInnerHTML;
 
 /***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Modal = __webpack_require__(443);
-
-var _Modal2 = _interopRequireDefault(_Modal);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Modal2.default;
-
-/***/ }),
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11097,7 +11097,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11633,7 +11633,7 @@ exports.go = exports.replaceLocation = exports.pushLocation = exports.startListe
 
 var _LocationUtils = __webpack_require__(29);
 
-var _DOMUtils = __webpack_require__(47);
+var _DOMUtils = __webpack_require__(48);
 
 var _DOMStateStorage = __webpack_require__(96);
 
@@ -11753,7 +11753,7 @@ var _runTransitionHook = __webpack_require__(64);
 
 var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-var _Actions = __webpack_require__(46);
+var _Actions = __webpack_require__(47);
 
 var _LocationUtils = __webpack_require__(29);
 
@@ -12064,7 +12064,7 @@ var ReactDOMComponentTree = __webpack_require__(9);
 var ReactInstrumentation = __webpack_require__(16);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(75);
-var setInnerHTML = __webpack_require__(53);
+var setInnerHTML = __webpack_require__(54);
 var setTextContent = __webpack_require__(238);
 
 function getNodeAfter(parentNode, node) {
@@ -14057,7 +14057,7 @@ var locationShape = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prop_types
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -14416,7 +14416,7 @@ var saveState = exports.saveState = function saveState(state) {
 
 var _assign = __webpack_require__(8);
 
-var emptyObject = __webpack_require__(45);
+var emptyObject = __webpack_require__(46);
 var _invariant = __webpack_require__(3);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -28544,7 +28544,7 @@ var _prodInvariant = __webpack_require__(5);
 var DOMLazyTree = __webpack_require__(30);
 var DOMProperty = __webpack_require__(22);
 var React = __webpack_require__(34);
-var ReactBrowserEventEmitter = __webpack_require__(49);
+var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactCurrentOwner = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(9);
 var ReactDOMContainerInfo = __webpack_require__(388);
@@ -28557,10 +28557,10 @@ var ReactReconciler = __webpack_require__(31);
 var ReactUpdateQueue = __webpack_require__(74);
 var ReactUpdates = __webpack_require__(17);
 
-var emptyObject = __webpack_require__(45);
+var emptyObject = __webpack_require__(46);
 var instantiateReactComponent = __webpack_require__(236);
 var invariant = __webpack_require__(3);
-var setInnerHTML = __webpack_require__(53);
+var setInnerHTML = __webpack_require__(54);
 var shouldUpdateReactComponent = __webpack_require__(80);
 var warning = __webpack_require__(4);
 
@@ -29674,8 +29674,8 @@ module.exports = isTextInputElement;
 
 
 var ExecutionEnvironment = __webpack_require__(10);
-var escapeTextContentForBrowser = __webpack_require__(52);
-var setInnerHTML = __webpack_require__(53);
+var escapeTextContentForBrowser = __webpack_require__(53);
+var setInnerHTML = __webpack_require__(54);
 
 /**
  * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -30093,7 +30093,7 @@ function findTabbableDescendants(element) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -30693,7 +30693,7 @@ function routerReducer() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_create_react_class__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PropTypes__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ContextUtils__ = __webpack_require__(84);
@@ -30847,11 +30847,11 @@ function isPromise(obj) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_create_react_class__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RouteUtils__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PatternUtils__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(42);
 
 
 
@@ -31327,7 +31327,7 @@ var _prodInvariant = __webpack_require__(35),
 var ReactNoopUpdateQueue = __webpack_require__(262);
 
 var canDefineProperty = __webpack_require__(55);
-var emptyObject = __webpack_require__(45);
+var emptyObject = __webpack_require__(46);
 var invariant = __webpack_require__(3);
 var lowPriorityWarning = __webpack_require__(87);
 
@@ -32592,7 +32592,7 @@ var _reactDom = __webpack_require__(217);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _reactRedux = __webpack_require__(7);
 
@@ -32959,7 +32959,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33013,6 +33013,7 @@ function ViewTableReport(props) {
 			) : null;
 		});
 	};
+	// request.userHospital ? request.userHospital.name : ''
 	var buildConfirm = function buildConfirm() {
 		var listRequest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
@@ -33068,10 +33069,18 @@ function ViewTableReport(props) {
 				' por ',
 				patient.userCreator.name
 			),
-			_react2.default.createElement(
+			patient.planExterno ? _react2.default.createElement(
 				'td',
-				null,
-				patient.healthcareplan.name
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' (',
+				patient.planExterno,
+				') '
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' '
 			),
 			_react2.default.createElement(
 				'td',
@@ -33362,11 +33371,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LargeButton = __webpack_require__(42);
+var _LargeButton = __webpack_require__(43);
 
 var _LargeButton2 = _interopRequireDefault(_LargeButton);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33430,7 +33439,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _actionCreators = __webpack_require__(36);
 
@@ -33671,7 +33680,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33885,9 +33894,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
-var _LargeButton = __webpack_require__(42);
+var _LargeButton = __webpack_require__(43);
 
 var _LargeButton2 = _interopRequireDefault(_LargeButton);
 
@@ -33969,6 +33978,8 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(11);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function FinanciadorUserForm(props) {
@@ -33976,37 +33987,37 @@ function FinanciadorUserForm(props) {
   var popup = null;
   if (props.success) {
     popup = _react2.default.createElement(
-      "div",
+      'div',
       null,
-      _react2.default.createElement("div", { className: "modal-backdrop", id: "modal-backdrop" }),
+      _react2.default.createElement('div', { className: 'modal-backdrop', id: 'modal-backdrop' }),
       _react2.default.createElement(
-        "div",
-        { className: "modal", id: "modal" },
+        'div',
+        { className: 'modal', id: 'modal' },
         _react2.default.createElement(
-          "div",
-          { className: "modal-dialog" },
+          'div',
+          { className: 'modal-dialog' },
           _react2.default.createElement(
-            "div",
-            { className: "modal-content" },
+            'div',
+            { className: 'modal-content' },
             _react2.default.createElement(
-              "div",
-              { className: "modal-header" },
+              'div',
+              { className: 'modal-header' },
               _react2.default.createElement(
-                "h4",
-                { className: "modal-title" },
-                "La Solicitante se ha creado exitosamente"
+                'h4',
+                { className: 'modal-title' },
+                'El usuario solicitante se ha creado exitosamente'
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "modal-footer " },
+              'div',
+              { className: 'modal-footer ' },
               _react2.default.createElement(
-                Link,
-                { to: "/Bedin" },
+                _reactRouter.Link,
+                { to: '/Bedin' },
                 _react2.default.createElement(
-                  "button",
-                  { type: "submit", className: " button ", "data-dismiss": "modal", id: "newbtn11" },
-                  "Home"
+                  'button',
+                  { type: 'submit', className: ' button ', 'data-dismiss': 'modal', id: 'newbtn11' },
+                  'Home'
                 )
               )
             )
@@ -34017,134 +34028,93 @@ function FinanciadorUserForm(props) {
   }
 
   return _react2.default.createElement(
-    "div",
+    'div',
     null,
     _react2.default.createElement(
-      "div",
-      { className: "container container_a" },
+      'div',
+      { className: 'container container_a' },
       _react2.default.createElement(
-        "div",
-        { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
+        'div',
+        { className: 'row' },
+        _react2.default.createElement('div', { className: 'col-xs-2 col-sm-2 col-lg-2' }),
         _react2.default.createElement(
-          "div",
-          { className: "col-xs-8 col-sm-8 col-lg-8 " },
+          'div',
+          { className: 'col-xs-8 col-sm-8 col-lg-8 ' },
           _react2.default.createElement(
-            "h2",
+            'h2',
             null,
-            "Detalles de Usuario Financiador"
+            'Detalles de Usuario Financiador'
           ),
           _react2.default.createElement(
-            "form",
-            { onSubmit: props.createUser, className: "form-horizontal" },
+            'div',
+            { className: 'form-group' },
             _react2.default.createElement(
-              "div",
-              { className: "form-group " },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "exampleInputName2", className: "col-sm-2 control-label" },
-                "Nombre"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "inputEmail3", name: "nombre", placeholder: "Nombre" })
-              )
+              'label',
+              { htmlFor: 'exampleInputName2', className: 'col-xs-2 col-sm-2 col-lg-2 control-label' },
+              'Nombre'
             ),
             _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputEmail3", className: "col-sm-2 control-label" },
-                "Username Temporal"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "inputEmail3", name: "username", placeholder: "Username" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputEmail3", className: "col-sm-2 control-label" },
-                "Password Temporal"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "inputEmail3", name: "password", placeholder: "Password" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputEmail3", className: "col-sm-2 control-label" },
-                "Email"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "email", className: "form-control", id: "inputEmail3", name: "email", placeholder: "Email" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputnumber3", className: "col-sm-2 control-label" },
-                "Tel\xE9fono"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "tel", className: "form-control", id: "inputEmail3", name: "telefono", placeholder: "Tel\xE9fono" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { id: "f1" },
-              _react2.default.createElement(
-                "label",
-                null,
-                "Seleccione Obra Social del Usuario"
-              ),
-              props.financiadors.map(function (financiador, i) {
-                return _react2.default.createElement(
-                  "div",
-                  { key: i, id: "g1" },
-                  _react2.default.createElement("input", { name: "financiadors", type: "radio", "data-id": financiador._id, value: financiador.name }),
-                  financiador.name,
-                  _react2.default.createElement("br", null)
-                );
-              })
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-offset-2 col-sm-10" },
-                _react2.default.createElement(
-                  "button",
-                  { type: "submit", value: "Save", className: " button", id: "newbtn" },
-                  "Save"
-                )
-              )
+              'div',
+              { className: 'col-xs-10 col-sm-10 col-lg-10' },
+              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputNombre', name: 'nombre', placeholder: 'Nombre' })
             )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'exampleInputName2', className: 'col-xs-2 col-sm-2 col-lg-2 control-label' },
+              'Username'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-xs-10 col-sm-10 col-lg-10' },
+              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputUserName', name: 'username', placeholder: 'Username' })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'exampleInputName2', className: 'col-xs-2 col-sm-2 col-lg-2 control-label' },
+              'Password'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-xs-10 col-sm-10 col-lg-10' },
+              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputPass', name: 'password', placeholder: 'Password' })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { id: 'f1', className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Seleccione Obra Social del Usuario'
+            ),
+            props.financiadors.map(function (financiador, i) {
+              return _react2.default.createElement(
+                'div',
+                { key: i, id: 'g1' },
+                _react2.default.createElement('input', { id: 'inputFinanciadors', name: 'financiadors', type: 'radio', dataID: financiador._id, value: financiador._id }),
+                financiador.name,
+                _react2.default.createElement('br', null)
+              );
+            })
+          ),
+          _react2.default.createElement(
+            'button',
+            { id: 'newbtn1', onClick: props.createUser },
+            'Save'
           )
         )
       )
     ),
-    "  ",
     _react2.default.createElement(
-      "div",
+      'div',
       null,
       popup
     )
@@ -34168,107 +34138,153 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(11);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function HospitalForm(props) {
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(
-      "div",
-      { className: "container container_a" },
+  var popup = null;
+  if (props.success) {
+    popup = _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement('div', { className: 'modal-backdrop', id: 'modal-backdrop' }),
       _react2.default.createElement(
-        "div",
-        { className: "row" },
-        _react2.default.createElement("div", { className: "col-xs-2 col-sm-2 col-lg-2" }),
+        'div',
+        { className: 'modal', id: 'modal' },
         _react2.default.createElement(
-          "div",
-          { className: "col-xs-8 col-sm-8 col-lg-8 " },
+          'div',
+          { className: 'modal-dialog' },
           _react2.default.createElement(
-            "h2",
-            null,
-            "Detalles del prestador"
-          ),
-          _react2.default.createElement(
-            "form",
-            { onSubmit: props.createHospital, className: "form-horizontal" },
+            'div',
+            { className: 'modal-content' },
             _react2.default.createElement(
-              "div",
-              { className: "form-group " },
+              'div',
+              { className: 'modal-header' },
               _react2.default.createElement(
-                "label",
-                { htmlFor: "exampleInputName2", className: "col-sm-2 control-label" },
-                "Nombre"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "inputEmail3", name: "nombre", placeholder: "Nombre" })
+                'h4',
+                { className: 'modal-title' },
+                'El hospital se ha creado exitosamente'
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "form-group" },
+              'div',
+              { className: 'modal-footer ' },
               _react2.default.createElement(
-                "label",
-                { htmlFor: "exampleInputName2", className: "col-sm-2 control-label" },
-                "Direcci\xF3n"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "inputEmail3", name: "direccion", placeholder: "Direcci\xF3n" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputnumber3", className: "col-sm-2 control-label" },
-                "Tel\xE9fono"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "tel", className: "form-control", id: "inputEmail3", name: "telefono", placeholder: "Tel\xE9fono" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "label",
-                { htmlFor: "inputEmail3", className: "col-sm-2 control-label" },
-                "Email"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-10" },
-                _react2.default.createElement("input", { type: "email", className: "form-control", id: "inputEmail3", name: "email", placeholder: "Email" })
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "form-group" },
-              _react2.default.createElement(
-                "div",
-                { className: "col-sm-offset-2 col-sm-10" },
+                _reactRouter.Link,
+                { to: '/Bedin' },
                 _react2.default.createElement(
-                  "button",
-                  { className: " button", type: "submit", value: "Save", id: "newbtn" },
-                  "Save"
+                  'button',
+                  { type: 'submit', className: ' button ', 'data-dismiss': 'modal', id: 'newbtn11' },
+                  'Home'
                 )
               )
             )
           )
         )
       )
+    );
+  }
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      { className: 'container container_a' },
+      _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement('div', { className: 'col-xs-2 col-sm-2 col-lg-2' }),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-xs-8 col-sm-8 col-lg-8 ' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Detalles del prestador'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group ' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'exampleInputName2', className: 'col-sm-2 control-label' },
+              'Nombre'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-10' },
+              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputNombre', name: 'nombre', placeholder: 'Nombre' })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'exampleInputName2', className: 'col-sm-2 control-label' },
+              'Direcci\xF3n'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-10' },
+              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputDireccion', name: 'direccion', placeholder: 'Direcci\xF3n' })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'inputnumber3', className: 'col-sm-2 control-label' },
+              'Tel\xE9fono'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-10' },
+              _react2.default.createElement('input', { type: 'tel', className: 'form-control', id: 'inputTelefono', name: 'telefono', placeholder: 'Tel\xE9fono' })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'inputEmail3', className: 'col-sm-2 control-label' },
+              'Email'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-10' },
+              _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail', name: 'email', placeholder: 'Email' })
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            { id: 'newbtn1', onClick: props.createHospital },
+            'Save'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      null,
+      popup
     )
   );
 }
 
 exports.default = HospitalForm;
+
+// <form onSubmit={props.createHospital} className="form-horizontal">
+
+//       <div className="form-group">
+//   <div className="col-sm-offset-2 col-sm-10">
+//     <button className=" button" type="submit" value="Save" id="newbtn">Save</button>
+//   </div>
+// </div>
 
 /***/ }),
 /* 285 */
@@ -34285,11 +34301,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LargeButton = __webpack_require__(42);
+var _LargeButton = __webpack_require__(43);
 
 var _LargeButton2 = _interopRequireDefault(_LargeButton);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34581,8 +34597,9 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function TableDataFinanciador(props) {
+var marginLeft = { marginLeft: "5px" };
 
+function TableDataFinanciador(props) {
 	var allHospitals = function allHospitals(hospitals) {
 		return hospitals.map(function (singleHospital) {
 			return _react2.default.createElement(
@@ -34601,13 +34618,37 @@ function TableDataFinanciador(props) {
 			{ key: i, style: { border: "1px solid black" } },
 			_react2.default.createElement(
 				"td",
-				{ className: "a6", style: { border: "1px solid black" } },
+				{ className: "a6" },
 				plan.name
 			),
 			_react2.default.createElement(
 				"td",
-				{ className: "a6", style: { border: "1px solid black" } },
+				{ className: "a6" },
 				allHospitals(plan.hospitals)
+			),
+			_react2.default.createElement(
+				"td",
+				null,
+				_react2.default.createElement(
+					"button",
+					{ title: "Agregar Hospital", type: "button", className: "btn btn-info btn-xs", style: marginLeft,
+						onClick: function onClick() {
+							return props.updateFinanciador(plan, props.financiador);
+						} },
+					_react2.default.createElement("span", { className: "glyphicon glyphicon-edit" })
+				)
+			),
+			_react2.default.createElement(
+				"td",
+				null,
+				_react2.default.createElement(
+					"button",
+					{ title: "Eliminar", type: "button", className: "btn btn-danger btn-xs", style: marginLeft,
+						onClick: function onClick() {
+							return props.deleteFinanciador(plan, props.financiador);
+						} },
+					_react2.default.createElement("span", { className: "glyphicon glyphicon-remove" })
+				)
 			)
 		);
 	});
@@ -34648,6 +34689,14 @@ function TableDataFinanciador(props) {
 						null,
 						"DIRECCI\xD3N: ",
 						props.financiador.address
+					),
+					_react2.default.createElement(
+						"button",
+						{ title: "Agregar Plan", type: "button", className: "btn",
+							onClick: function onClick() {
+								return props.addPlanFinanciador(props.financiador);
+							} },
+						"Agregar Plan"
 					)
 				),
 				_react2.default.createElement(
@@ -34668,6 +34717,16 @@ function TableDataFinanciador(props) {
 								"th",
 								{ className: "a6 b6" },
 								"HOSPITALES"
+							),
+							_react2.default.createElement(
+								"th",
+								{ className: "a6 b6" },
+								"ADD HTAL"
+							),
+							_react2.default.createElement(
+								"th",
+								{ className: "a6 b6" },
+								"ELIMINAR"
 							)
 						)
 					),
@@ -34859,7 +34918,7 @@ function TableDataUserBedin(props) {
 			_react2.default.createElement(
 				'td',
 				null,
-				user.rol || 'Admin'
+				user.instancesLogged == 0 ? 'NO' : 'SI'
 			),
 			_react2.default.createElement(
 				'button',
@@ -34922,7 +34981,7 @@ function TableDataUserBedin(props) {
 								_react2.default.createElement(
 									'th',
 									null,
-									'ROL'
+									'LOGGED'
 								)
 							)
 						),
@@ -35012,7 +35071,7 @@ function TableDataUserFinanciador(props) {
 			_react2.default.createElement(
 				'td',
 				null,
-				user.rol
+				user.instancesLogged == 0 ? 'NO' : 'SI'
 			),
 			_react2.default.createElement(
 				'button',
@@ -35075,7 +35134,7 @@ function TableDataUserFinanciador(props) {
 								_react2.default.createElement(
 									'th',
 									null,
-									'ROL'
+									'LOGGED'
 								)
 							)
 						),
@@ -35166,7 +35225,7 @@ function TableDataUserHospital(props) {
 			_react2.default.createElement(
 				'td',
 				null,
-				user.rol
+				user.instancesLogged == 0 ? 'NO' : 'SI'
 			),
 			_react2.default.createElement(
 				'button',
@@ -35229,7 +35288,7 @@ function TableDataUserHospital(props) {
 								_react2.default.createElement(
 									'th',
 									null,
-									'ROL'
+									'LOGGED'
 								)
 							)
 						),
@@ -35363,11 +35422,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LargeButton = __webpack_require__(42);
+var _LargeButton = __webpack_require__(43);
 
 var _LargeButton2 = _interopRequireDefault(_LargeButton);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35574,10 +35633,10 @@ function CreatePatientRequestForm(props) {
             ),
             _react2.default.createElement(
               "div",
-              { className: "col-sm-9" },
+              { className: "col-sm-6" },
               _react2.default.createElement(
                 "select",
-                { className: "form-control", name: "plan", id: "planSelect" },
+                { className: "form-control", name: "plan", id: "planSelect", onChange: props.changePlan },
                 _react2.default.createElement(
                   "option",
                   null,
@@ -35590,6 +35649,15 @@ function CreatePatientRequestForm(props) {
                     plan.name
                   );
                 })
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "div",
+                { className: "col-sm-3" },
+                _react2.default.createElement("input", { type: "text", className: "form-control", name: "planExterno", id: "planExterno", placeholder: "Plan externo", style: { visibility: 'hidden' } })
               )
             )
           ),
@@ -36041,10 +36109,18 @@ function ViewPatientRequestsPendingTable(props) {
                 { style: tableStyle },
                 pending.complexity
             ),
-            _react2.default.createElement(
+            pending.planExterno ? _react2.default.createElement(
                 'td',
                 { style: tableStyle },
-                pending.healthcareplan.name
+                pending.healthcareplan.name,
+                ' (',
+                pending.planExterno,
+                ') '
+            ) : _react2.default.createElement(
+                'td',
+                { style: tableStyle },
+                pending.healthcareplan.name,
+                ' '
             ),
             _react2.default.createElement(
                 'td',
@@ -36332,10 +36408,18 @@ function ViewPatientRequestsAcceptedTable(props) {
 		return _react2.default.createElement(
 			'tr',
 			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-			_react2.default.createElement(
+			patient.planExterno ? _react2.default.createElement(
 				'td',
-				null,
-				patient.healthcareplan.name
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' (',
+				patient.planExterno,
+				') '
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' '
 			),
 			_react2.default.createElement(
 				'td',
@@ -36507,10 +36591,18 @@ function ViewPatientRequestsPendingTable(props) {
     return _react2.default.createElement(
       'tr',
       { style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-      _react2.default.createElement(
+      patient.planExterno ? _react2.default.createElement(
         'td',
-        null,
-        patient.healthcareplan.name
+        { style: tableStyle },
+        patient.healthcareplan.name,
+        ' (',
+        patient.planExterno,
+        ') '
+      ) : _react2.default.createElement(
+        'td',
+        { style: tableStyle },
+        patient.healthcareplan.name,
+        ' '
       ),
       _react2.default.createElement(
         'td',
@@ -36706,10 +36798,18 @@ function ViewPatientRequestsRejectedTable(props) {
 		return _react2.default.createElement(
 			'tr',
 			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-			_react2.default.createElement(
+			patient.planExterno ? _react2.default.createElement(
 				'td',
-				null,
-				patient.healthcareplan.name
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' (',
+				patient.planExterno,
+				') '
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' '
 			),
 			_react2.default.createElement(
 				'td',
@@ -36968,10 +37068,18 @@ function ViewTableReport(props) {
 				null,
 				patient.complexity
 			),
-			_react2.default.createElement(
+			patient.planExterno ? _react2.default.createElement(
 				'td',
-				null,
-				patient.healthcareplan.name
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' (',
+				patient.planExterno,
+				') '
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				patient.healthcareplan.name,
+				' '
 			),
 			_react2.default.createElement(
 				'td',
@@ -37131,7 +37239,7 @@ exports.default = ViewTableReport;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 var _react = __webpack_require__(2);
@@ -37150,229 +37258,245 @@ var marginLeft = { marginLeft: "50%" };
 var marginLeftBtn = { marginLeft: "5px" };
 
 function ViewPatientRequestsViewedTable(props) {
-	var formattedDate = function formattedDate(date) {
-		// return moment(date).format('DD/MM/YYYY || HH:mm:ss');
-		return ((0, _moment2.default)(date).isSame((0, _moment2.default)(), 'day') ? 'HOY  ' : 'AYER ') + (0, _moment2.default)(date).format('HH:mm:ss');
-	};
+		var formattedDate = function formattedDate(date) {
+				// return moment(date).format('DD/MM/YYYY || HH:mm:ss');
+				return ((0, _moment2.default)(date).isSame((0, _moment2.default)(), 'day') ? 'HOY  ' : 'AYER ') + (0, _moment2.default)(date).format('HH:mm:ss');
+		};
 
-	var tableBody = props.patientsList.map(function (patient, i) {
-		return patient.isConfirm ? _react2.default.createElement(
-			'tr',
-			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.healthcareplan.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.dni
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.age
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.sex
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.cie10
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.complexity
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.healthcare.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.hospitalsAndState.userHospital.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				formattedDate(patient.dateCreated)
-			),
-			_react2.default.createElement('td', null),
-			_react2.default.createElement('td', null),
-			_react2.default.createElement('td', null)
-		) : _react2.default.createElement(
-			'tr',
-			{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.healthcareplan.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.dni
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.age
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.sex
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.cie10
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.complexity
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.healthcare.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.hospitalsAndState.userHospital.name
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				formattedDate(patient.dateCreated)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				_react2.default.createElement(
-					'button',
-					{ title: 'Aceptar', type: 'button', className: 'btn btn-success btn-xs', style: marginLeftBtn,
-						onClick: function onClick() {
-							return props.setStateV(patient._id, 'Aceptado');
-						} },
-					_react2.default.createElement('span', { className: 'glyphicon glyphicon-ok' })
-				)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				_react2.default.createElement(
-					'button',
-					{ title: 'Rechazar', type: 'button', className: 'btn btn-danger btn-xs', style: marginLeftBtn,
-						onClick: function onClick() {
-							return props.setReasonRejection(patient._id);
-						} },
-					_react2.default.createElement('span', { className: 'glyphicon glyphicon-remove-circle' })
-				)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				_react2.default.createElement(
-					'button',
-					{ title: 'Enviar mensaje', type: 'button', className: 'btn btn-info btn-xs', style: marginLeftBtn,
-						onClick: function onClick() {
-							return props.openModal(patient._id);
-						} },
-					_react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
-				)
-			)
-		);
-	});
-	var setRowColor = function setRowColor(color) {
-		return { backgroundColor: color };
-	};
-	return _react2.default.createElement(
-		'div',
-		null,
-		_react2.default.createElement(
-			'div',
-			{ className: 'container' },
-			_react2.default.createElement(
-				'div',
-				{ 'class': 'table-responsive' },
-				_react2.default.createElement(
-					'table',
-					{ className: 'table' },
-					_react2.default.createElement(
-						'thead',
-						{ style: { border: "1px solid grey" } },
+		var tableBody = props.patientsList.map(function (patient, i) {
+				return patient.isConfirm ? _react2.default.createElement(
+						'tr',
+						{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+						patient.planExterno ? _react2.default.createElement(
+								'td',
+								{ style: tableStyle },
+								patient.healthcareplan.name,
+								' (',
+								patient.planExterno,
+								') '
+						) : _react2.default.createElement(
+								'td',
+								{ style: tableStyle },
+								patient.healthcareplan.name,
+								' '
+						),
 						_react2.default.createElement(
-							'tr',
-							{ style: Object.assign({}, setRowColor('lightgrey')) },
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Plan'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Paciente'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Edad'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Sexo'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Diagn\xF3stico'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Complejidad de Cama'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Solicitante'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Usuario'
-							),
-							_react2.default.createElement(
-								'th',
-								{ style: { border: "1px solid grey" } },
-								'Fecha/Hora'
-							),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } })
+								'td',
+								null,
+								patient.dni
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.age
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.sex
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.cie10
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.complexity
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.healthcare.name
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.hospitalsAndState.userHospital.name
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								formattedDate(patient.dateCreated)
+						),
+						_react2.default.createElement('td', null),
+						_react2.default.createElement('td', null),
+						_react2.default.createElement('td', null)
+				) : _react2.default.createElement(
+						'tr',
+						{ style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+						patient.planExterno ? _react2.default.createElement(
+								'td',
+								{ style: tableStyle },
+								patient.healthcareplan.name,
+								' (',
+								patient.planExterno,
+								') '
+						) : _react2.default.createElement(
+								'td',
+								{ style: tableStyle },
+								patient.healthcareplan.name,
+								' '
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.dni
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.age
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.sex
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.cie10
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.complexity
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.healthcare.name
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								patient.hospitalsAndState.userHospital.name
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								formattedDate(patient.dateCreated)
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								_react2.default.createElement(
+										'button',
+										{ title: 'Aceptar', type: 'button', className: 'btn btn-success btn-xs', style: marginLeftBtn,
+												onClick: function onClick() {
+														return props.setStateV(patient._id, 'Aceptado');
+												} },
+										_react2.default.createElement('span', { className: 'glyphicon glyphicon-ok' })
+								)
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								_react2.default.createElement(
+										'button',
+										{ title: 'Rechazar', type: 'button', className: 'btn btn-danger btn-xs', style: marginLeftBtn,
+												onClick: function onClick() {
+														return props.setReasonRejection(patient._id);
+												} },
+										_react2.default.createElement('span', { className: 'glyphicon glyphicon-remove-circle' })
+								)
+						),
+						_react2.default.createElement(
+								'td',
+								null,
+								_react2.default.createElement(
+										'button',
+										{ title: 'Enviar mensaje', type: 'button', className: 'btn btn-info btn-xs', style: marginLeftBtn,
+												onClick: function onClick() {
+														return props.openModal(patient._id);
+												} },
+										_react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
+								)
 						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						tableBody
-					)
+				);
+		});
+		var setRowColor = function setRowColor(color) {
+				return { backgroundColor: color };
+		};
+		return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+						'div',
+						{ className: 'container' },
+						_react2.default.createElement(
+								'div',
+								{ 'class': 'table-responsive' },
+								_react2.default.createElement(
+										'table',
+										{ className: 'table' },
+										_react2.default.createElement(
+												'thead',
+												{ style: { border: "1px solid grey" } },
+												_react2.default.createElement(
+														'tr',
+														{ style: Object.assign({}, setRowColor('lightgrey')) },
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Plan'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Paciente'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Edad'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Sexo'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Diagn\xF3stico'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Complejidad de Cama'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Solicitante'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Usuario'
+														),
+														_react2.default.createElement(
+																'th',
+																{ style: { border: "1px solid grey" } },
+																'Fecha/Hora'
+														),
+														_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
+														_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
+														_react2.default.createElement('th', { style: { border: "1px solid grey" } })
+												)
+										),
+										_react2.default.createElement(
+												'tbody',
+												null,
+												tableBody
+										)
+								)
+						)
 				)
-			)
-		)
-	);
+		);
 }
 
 exports.default = ViewPatientRequestsViewedTable;
@@ -37400,7 +37524,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _actionCreators = __webpack_require__(36);
 
@@ -37596,7 +37720,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _viewUser = __webpack_require__(44);
+var _viewUser = __webpack_require__(45);
 
 var actionCreators = _interopRequireWildcard(_viewUser);
 
@@ -37921,19 +38045,15 @@ var FinanciadorUserForm = function (_React$Component) {
   }, {
     key: 'create',
     value: function create(e) {
-      var checkedFinanciador = this.props.financiadors.filter(function (financiador) {
-        return financiador.name === e.target.financiadors.value;
-      });
+      var radios = document.querySelectorAll('input[type="radio"]:checked');
+      var checkedFinanciador = radios.length > 0 ? radios[0].value : null;
       e.preventDefault();
       this.props.createUser({
-        name: e.target.nombre.value,
-        //address: e.target.direccion.value,
-        //phone: e.target.telefono.value,
-        //email: e.target.email.value,
-        username: e.target.username.value,
-        password: e.target.password.value,
+        name: document.getElementById("inputNombre").value,
+        username: document.getElementById("inputUserName").value,
+        password: document.getElementById("inputPass").value,
         type: "Financiador",
-        osCode: checkedFinanciador[0]._id
+        osCode: checkedFinanciador //[0]._id
       });
     }
   }, {
@@ -37973,7 +38093,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _viewUser = __webpack_require__(44);
+var _viewUser = __webpack_require__(45);
 
 var actionCreators = _interopRequireWildcard(_viewUser);
 
@@ -38045,7 +38165,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38062,6 +38182,10 @@ var _viewFinanciador = __webpack_require__(326);
 
 var actionCreators = _interopRequireWildcard(_viewFinanciador);
 
+var _reactModal = __webpack_require__(41);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
 var _TableDataFinanciador = __webpack_require__(287);
 
 var _TableDataFinanciador2 = _interopRequireDefault(_TableDataFinanciador);
@@ -38076,50 +38200,257 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
+
 function mapStateToProps(state) {
-	return {
-		isRequesting: state.viewFinanciadores.isRequesting,
-		financiadores: state.viewFinanciadores.financiadores
-	};
+  return {
+    isRequesting: state.viewFinanciadores.isRequesting,
+    financiadores: state.viewFinanciadores.financiadores,
+    hospitals: state.viewHospitals.hospitals
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-	return (0, _redux.bindActionCreators)(actionCreators, dispatch);
+  return (0, _redux.bindActionCreators)(actionCreators, dispatch);
 }
 
 var FinanciadorDataView = function (_React$Component) {
-	_inherits(FinanciadorDataView, _React$Component);
+  _inherits(FinanciadorDataView, _React$Component);
 
-	function FinanciadorDataView(props) {
-		_classCallCheck(this, FinanciadorDataView);
+  function FinanciadorDataView(props) {
+    _classCallCheck(this, FinanciadorDataView);
 
-		return _possibleConstructorReturn(this, (FinanciadorDataView.__proto__ || Object.getPrototypeOf(FinanciadorDataView)).call(this, props));
-	}
+    var _this = _possibleConstructorReturn(this, (FinanciadorDataView.__proto__ || Object.getPrototypeOf(FinanciadorDataView)).call(this, props));
 
-	_createClass(FinanciadorDataView, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			this.props.fetchFinancidadores();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var dataFinanciadores = !this.props.financiadores ? _react2.default.createElement(
-				'p',
-				null,
-				'Cargando...'
-			) : this.props.financiadores.map(function (financiador) {
-				return _react2.default.createElement(_TableDataFinanciador2.default, { key: financiador._id, financiador: financiador });
-			});
-			return _react2.default.createElement(
-				'div',
-				null,
-				dataFinanciadores
-			);
-		}
-	}]);
+    _this.state = {
+      modalDeleteIsOpen: false,
+      modalEditIsOpen: false,
+      financiadorName: null,
+      planName: null,
+      financiardorId: null,
+      planId: null
+    };
+    _this.deletePlanFinanciador = _this.deletePlanFinanciador.bind(_this);
+    _this.updatePlanFinanciador = _this.updatePlanFinanciador.bind(_this);
+    _this.confirmDelete = _this.confirmDelete.bind(_this);
+    _this.confirmEdit = _this.confirmEdit.bind(_this);
+    _this.closeDeleteModal = _this.closeDeleteModal.bind(_this);
+    _this.closeEditModal = _this.closeEditModal.bind(_this);
+    _this.addPlanFinanciador = _this.addPlanFinanciador.bind(_this);
+    _this.closeNewPlanModal = _this.closeNewPlanModal.bind(_this);
+    _this.confirmNewPlan = _this.confirmNewPlan.bind(_this);
+    return _this;
+  }
 
-	return FinanciadorDataView;
+  _createClass(FinanciadorDataView, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      if (!this.props.hospitals) {
+        this.props.fetchHospitals();
+      }
+      this.props.fetchFinancidadores();
+    }
+  }, {
+    key: 'deletePlanFinanciador',
+    value: function deletePlanFinanciador(plan, financiador) {
+      this.setState({ modalDeleteIsOpen: true, financiadorName: financiador.name, planName: plan.name, planId: plan._id, financiadorId: financiador._id });
+    }
+  }, {
+    key: 'updatePlanFinanciador',
+    value: function updatePlanFinanciador(plan, financiador) {
+      this.setState({ modalEditIsOpen: true, financiadorName: financiador.name, planName: plan.name, planId: plan._id, financiadorId: financiador._id });
+    }
+  }, {
+    key: 'closeDeleteModal',
+    value: function closeDeleteModal() {
+      this.setState({ modalDeleteIsOpen: false });
+    }
+  }, {
+    key: 'closeEditModal',
+    value: function closeEditModal() {
+      this.setState({ modalEditIsOpen: false });
+    }
+  }, {
+    key: 'confirmDelete',
+    value: function confirmDelete() {
+      this.props.removePlanFinanciador(this.state.financiadorId, this.state.planId);
+      this.setState({ modalDeleteIsOpen: false });
+    }
+  }, {
+    key: 'confirmEdit',
+    value: function confirmEdit() {
+      var htal = document.getElementById("addHospitales").value;
+      if (htal == "---Hospitales---") {
+        alert("Hospital no seleccionado");
+        return;
+      }
+      this.props.addHospitalFinanciador(this.state.financiadorId, this.state.planId, htal);
+      this.setState({ modalDeleteIsOpen: false });
+    }
+  }, {
+    key: 'closeNewPlanModal',
+    value: function closeNewPlanModal() {
+      this.setState({ modalNewPlanIsOpen: false });
+    }
+  }, {
+    key: 'confirmNewPlan',
+    value: function confirmNewPlan() {
+      var txtNewPlan = document.getElementById("txtNewPlan").value;
+      this.props.addNewPlan(this.state.financiadorId, txtNewPlan);
+      this.setState({ modalNewPlanIsOpen: false });
+    }
+  }, {
+    key: 'addPlanFinanciador',
+    value: function addPlanFinanciador(financiador) {
+      this.setState({ modalNewPlanIsOpen: true, financiadorId: financiador._id });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var dataFinanciadores = !this.props.financiadores ? _react2.default.createElement(
+        'p',
+        null,
+        'Cargando...'
+      ) : this.props.financiadores.map(function (financiador) {
+        return _react2.default.createElement(_TableDataFinanciador2.default, {
+          key: financiador._id, financiador: financiador,
+          deleteFinanciador: _this2.deletePlanFinanciador,
+          updateFinanciador: _this2.updatePlanFinanciador,
+          addPlanFinanciador: _this2.addPlanFinanciador
+        });
+      });
+
+      var hospitals = _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'form',
+          { className: 'form-horizontal' },
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'sel2', className: 'control-label col-sm-3' },
+              'Hospitales'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-8' },
+              _react2.default.createElement(
+                'select',
+                { className: 'form-control', name: 'htales', id: 'addHospitales' },
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                  'option',
+                  null,
+                  '---Hospitales---'
+                ),
+                this.props.hospitals.map(function (hospital, i) {
+                  return _react2.default.createElement(
+                    'option',
+                    { key: i, value: hospital._id },
+                    hospital.name
+                  );
+                })
+              )
+            )
+          )
+        )
+      );
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        dataFinanciadores,
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            isOpen: this.state.modalDeleteIsOpen,
+            onRequestClose: this.closeDeleteModal,
+            style: customStyles,
+            contentLabel: 'Example Modal' },
+          'Confirma eliminaci\xF3n del plan?',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          'Solicitante: ',
+          this.state.financiadorName,
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          'Plan: ',
+          this.state.planName,
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.confirmDelete },
+            'Confirmar'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.closeDeleteModal },
+            'Cancelar'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            isOpen: this.state.modalEditIsOpen,
+            onRequestClose: this.closeEditModal,
+            style: customStyles,
+            contentLabel: 'Example Modal' },
+          hospitals,
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.confirmEdit },
+            'Confirmar'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.closeEditModal },
+            'Cancelar'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            isOpen: this.state.modalNewPlanIsOpen,
+            onRequestClose: this.closeNewPlanModal,
+            style: customStyles,
+            contentLabel: 'Example Modal' },
+          'Nuevo plan',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('textarea', { name: 'txtNewPlan', id: 'txtNewPlan', cols: '20', rows: '1' }),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.confirmNewPlan },
+            'Confirmar'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.closeNewPlanModal },
+            'Cancelar'
+          )
+        )
+      );
+    }
+  }]);
+
+  return FinanciadorDataView;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FinanciadorDataView);
@@ -38202,10 +38533,10 @@ var HospitalForm = function (_React$Component) {
     value: function create(e) {
       e.preventDefault();
       this.props.createEntidadHospital({
-        name: e.target.nombre.value,
-        address: e.target.direccion.value,
-        phone: e.target.telefono.value,
-        email: e.target.email.value
+        name: document.getElementById("inputNombre").value,
+        address: document.getElementById("inputDireccion").value,
+        phone: document.getElementById("inputTelefono").value,
+        email: document.getElementById("inputEmail").value
       });
     }
   }, {
@@ -38214,7 +38545,7 @@ var HospitalForm = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_HospitalForm2.default, { createHospital: this.create })
+        _react2.default.createElement(_HospitalForm2.default, { createHospital: this.create, success: this.props.createSuccess })
       );
     }
   }]);
@@ -38362,7 +38693,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _viewUser = __webpack_require__(44);
+var _viewUser = __webpack_require__(45);
 
 var actionCreators = _interopRequireWildcard(_viewUser);
 
@@ -38532,7 +38863,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _actionCreators = __webpack_require__(36);
 
@@ -38625,7 +38956,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _viewUser = __webpack_require__(44);
+var _viewUser = __webpack_require__(45);
 
 var actionCreators = _interopRequireWildcard(_viewUser);
 
@@ -38805,6 +39136,7 @@ var CreatePatientRequest = function (_React$Component) {
 
     _this.create = _this.create.bind(_this);
     _this.createOk = _this.createOk.bind(_this);
+    _this.changePlan = _this.changePlan.bind(_this);
     // this.onChange = this.onChange.bind(this)
     // this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     // this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
@@ -38841,12 +39173,21 @@ var CreatePatientRequest = function (_React$Component) {
       var edad = document.getElementById("edad").value;
       var patient = document.getElementById("dni").value;
       var diagnosis = document.getElementById("cie").value;
+      var planExt = document.getElementById("planExterno").value;
 
       if (selectedPlan == "---Selecccione Plan---") {
         alert("No se seleccinó plan");
         document.getElementById("planSelect").focus();
         return;
       }
+
+      var selectedPlanName = document.getElementById("planSelect")[document.getElementById("planSelect").selectedIndex].text;
+      if (selectedPlanName.toLowerCase() == "externo" && planExt == '') {
+        alert("Plan externo no ingresado");
+        document.getElementById("planExterno").focus();
+        return;
+      }
+
       if (edad == '' || isNaN(edad) || edad < 0) {
         alert("Edad no ingresada o no válida");
         document.getElementById("edad").focus();
@@ -38885,8 +39226,10 @@ var CreatePatientRequest = function (_React$Component) {
         complexity: selectedComplexity,
         healthcareplan: selectedPlan,
         userCreator: _store2.default.getState().authentication.userId,
-        obs: observation
+        obs: observation,
+        planExterno: planExt
       });
+
       document.getElementById("dni").value = '';
       document.getElementById("sexSelect").value = '---Seleccione Sexo---';
       document.getElementById("edad").value = '';
@@ -38894,12 +39237,23 @@ var CreatePatientRequest = function (_React$Component) {
       document.getElementById("complexitySelect").value = '---Seleccione Complejidad---';
       document.getElementById("planSelect").value = '---Selecccione Plan---';
       document.getElementById("obs").value = '';
+      document.getElementById("planExterno").value = '';
+      document.getElementById("planExterno").style.visibility = "hidden";
     }
   }, {
     key: 'createOk',
     value: function createOk(e) {
       e.preventDefault();
       this.props.resetCreateSuccess();
+    }
+  }, {
+    key: 'changePlan',
+    value: function changePlan() {
+      var selectedPlan = document.getElementById("planSelect")[document.getElementById("planSelect").selectedIndex].text;
+      if (selectedPlan.toLowerCase() == "externo") document.getElementById("planExterno").style.visibility = "visible";else {
+        document.getElementById("planExterno").style.visibility = "hidden";
+        document.getElementById("planExterno").value = "";
+      }
     }
   }, {
     key: 'componentWillUnmount',
@@ -38942,7 +39296,13 @@ var CreatePatientRequest = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_CreatePatientRequestForm2.default, { plans: this.props.plans, createRequest: this.create, success: this.props.createSuccess, createRequestOk: this.createOk })
+        _react2.default.createElement(_CreatePatientRequestForm2.default, {
+          plans: this.props.plans,
+          createRequest: this.create,
+          success: this.props.createSuccess,
+          createRequestOk: this.createOk,
+          changePlan: this.changePlan
+        })
       );
     }
   }]);
@@ -39069,7 +39429,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _actionCreators = __webpack_require__(36);
 
@@ -39194,7 +39554,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactModal = __webpack_require__(54);
+var _reactModal = __webpack_require__(41);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
@@ -39347,7 +39707,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactModal = __webpack_require__(54);
+var _reactModal = __webpack_require__(41);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
@@ -39548,7 +39908,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactRouter = __webpack_require__(12);
+var _reactRouter = __webpack_require__(11);
 
 var _actionCreators = __webpack_require__(36);
 
@@ -39676,7 +40036,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _patients = __webpack_require__(43);
+var _patients = __webpack_require__(44);
 
 var actionCreators = _interopRequireWildcard(_patients);
 
@@ -39774,7 +40134,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactModal = __webpack_require__(54);
+var _reactModal = __webpack_require__(41);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
@@ -39786,7 +40146,7 @@ var _store = __webpack_require__(28);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _patients = __webpack_require__(43);
+var _patients = __webpack_require__(44);
 
 var actionCreators = _interopRequireWildcard(_patients);
 
@@ -40007,10 +40367,6 @@ var ViewPatientRequest = function (_React$Component) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ViewPatientRequest);
 
-// {store.getState().patients.reasonReject.map((reason, i) =>
-//   <option key={i} value={reason.code}>{plan.reason}</option>
-// )}
-
 /***/ }),
 /* 323 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -40032,7 +40388,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _patients = __webpack_require__(43);
+var _patients = __webpack_require__(44);
 
 var actionCreators = _interopRequireWildcard(_patients);
 
@@ -40134,7 +40490,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(7);
 
-var _reactModal = __webpack_require__(54);
+var _reactModal = __webpack_require__(41);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
@@ -40142,7 +40498,7 @@ var _store = __webpack_require__(28);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _patients = __webpack_require__(43);
+var _patients = __webpack_require__(44);
 
 var actionCreators = _interopRequireWildcard(_patients);
 
@@ -40608,46 +40964,192 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.isRequestingToServer = isRequestingToServer;
 exports.getFinanciadores = getFinanciadores;
 exports.failedRequest = failedRequest;
 exports.fetchFinancidadores = fetchFinancidadores;
+exports.isRemovingPlan = isRemovingPlan;
+exports.removePlanSuccess = removePlanSuccess;
+exports.removePlanFailed = removePlanFailed;
+exports.isAddingPlan = isAddingPlan;
+exports.addPlanSuccess = addPlanSuccess;
+exports.addPlanFailed = addPlanFailed;
+exports.removePlanFinanciador = removePlanFinanciador;
+exports.addHospitalFinanciador = addHospitalFinanciador;
+exports.getHospitals = getHospitals;
+exports.fetchHospitals = fetchHospitals;
+exports.addNewPlan = addNewPlan;
 function isRequestingToServer() {
-	return {
-		type: 'IS_REQUESTING_TO_SERVER'
-	};
+  return {
+    type: 'IS_REQUESTING_TO_SERVER'
+  };
 }
 
 function getFinanciadores(financiadores) {
-	return {
-		type: 'GET_FINANCIADORES',
-		financiadores: financiadores
-	};
+  return {
+    type: 'GET_FINANCIADORES',
+    financiadores: financiadores
+  };
 }
 
 function failedRequest(err) {
-	return {
-		type: 'FAILED_REQUEST',
-		err: err
-	};
+  return {
+    type: 'FAILED_REQUEST',
+    err: err
+  };
 }
 
 function fetchFinancidadores() {
-	return function (dispatch) {
-		dispatch(isRequestingToServer());
-		fetch('./bedin/healthcares', {
-			method: 'GET',
-			credentials: 'include'
-		}).then(function (response) {
-			return response.json();
-		}).then(function (financiadores) {
-			return dispatch(getFinanciadores(financiadores));
-		}).catch(function (err) {
-			return dispatch(failedRequest(err));
-		});
-	};
+  return function (dispatch) {
+    dispatch(isRequestingToServer());
+    fetch('./bedin/healthcares', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (financiadores) {
+      return dispatch(getFinanciadores(financiadores));
+    }).catch(function (err) {
+      return dispatch(failedRequest(err));
+    });
+  };
+}
+
+function isRemovingPlan() {
+  return {
+    type: 'IS_REQUESTING_TO_SERVER'
+  };
+}
+
+function removePlanSuccess() {
+  //  return {
+  //    type: 'FAILED_REQUEST',
+  //    err
+  // };
+}
+
+function removePlanFailed(err) {
+  return {
+    type: 'FAILED_REQUEST',
+    err: err
+  };
+}
+
+function isAddingPlan() {
+  return {
+    type: 'IS_REQUESTING_TO_SERVER'
+  };
+}
+function addPlanSuccess() {}
+
+function addPlanFailed(err) {
+  return {
+    type: 'FAILED_REQUEST',
+    err: err
+  };
+}
+
+function removePlanFinanciador(financiadorId, planId) {
+
+  return function (dispatch) {
+    dispatch(isRemovingPlan());
+    var objRequest = {
+      financiadorId: financiadorId,
+      planId: planId
+    };
+    return fetch('./bedin/healthcares/remove/', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(objRequest)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+
+      if (!data.error) return dispatch(removePlanSuccess());
+      return dispatch(removePlanFailed(data.error));
+    });
+  };
+}
+
+function addHospitalFinanciador(financiadorId, planId, newHospitalId) {
+  return function (dispatch) {
+    dispatch(isAddingPlan());
+    var objRequest = {
+      financiadorId: financiadorId,
+      planId: planId,
+      newHospitalId: newHospitalId
+    };
+    return fetch('./bedin/healthcares/add/', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(objRequest)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+
+      if (!data.error) return dispatch(addPlanSuccess());
+      return dispatch(addPlanFailed(data.error));
+    });
+  };
+}
+
+function getHospitals(hospitals) {
+  return {
+    type: 'GET_HOSPITALS',
+    hospitals: hospitals
+  };
+}
+
+function fetchHospitals() {
+  return function (dispatch) {
+    dispatch(isRequestingToServer());
+    fetch('./bedin/hospitals', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (hospitals) {
+      return dispatch(getHospitals(hospitals));
+    }).catch(function (err) {
+      return dispatch(failedRequest(err));
+    });
+  };
+}
+
+function addNewPlan(financiadorId, txtNewPlan) {
+  return function (dispatch) {
+    dispatch(isAddingPlan());
+    var objRequest = {
+      financiadorId: financiadorId,
+      txtNewPlan: txtNewPlan
+    };
+    console.log("Financ ID", objRequest);
+    return fetch('./bedin/healthcares/addPlan/', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(objRequest)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+
+      if (!data.error) return dispatch(addPlanSuccess());
+      return dispatch(addPlanFailed(data.error));
+    });
+  };
 }
 
 /***/ }),
@@ -40821,7 +41323,6 @@ function formReducers() {
 
   switch (action.type) {
     case 'USER_IS_LOGGED_OUT_FR':
-      console.log('USER_IS_LOGGED_OUT_FR');
       return Object.assign({}, state, {
         isRequesting: false,
         createSuccess: false,
@@ -42276,7 +42777,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _LocationUtils = __webpack_require__(29);
 
-var _DOMUtils = __webpack_require__(47);
+var _DOMUtils = __webpack_require__(48);
 
 var _DOMStateStorage = __webpack_require__(96);
 
@@ -42442,7 +42943,7 @@ exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _invariant = __webpack_require__(11);
+var _invariant = __webpack_require__(12);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -42456,7 +42957,7 @@ var _RefreshProtocol = __webpack_require__(355);
 
 var RefreshProtocol = _interopRequireWildcard(_RefreshProtocol);
 
-var _DOMUtils = __webpack_require__(47);
+var _DOMUtils = __webpack_require__(48);
 
 var _createHistory = __webpack_require__(63);
 
@@ -42546,13 +43047,13 @@ var _warning = __webpack_require__(24);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(11);
+var _invariant = __webpack_require__(12);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
 var _ExecutionEnvironment = __webpack_require__(62);
 
-var _DOMUtils = __webpack_require__(47);
+var _DOMUtils = __webpack_require__(48);
 
 var _HashProtocol = __webpack_require__(354);
 
@@ -42700,7 +43201,7 @@ var _warning = __webpack_require__(24);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(11);
+var _invariant = __webpack_require__(12);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -42712,7 +43213,7 @@ var _createHistory = __webpack_require__(63);
 
 var _createHistory2 = _interopRequireDefault(_createHistory);
 
-var _Actions = __webpack_require__(46);
+var _Actions = __webpack_require__(47);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44869,7 +45370,7 @@ module.exports = DefaultEventPluginOrder;
 
 var EventPropagators = __webpack_require__(38);
 var ReactDOMComponentTree = __webpack_require__(9);
-var SyntheticMouseEvent = __webpack_require__(50);
+var SyntheticMouseEvent = __webpack_require__(51);
 
 var eventTypes = {
   mouseEnter: {
@@ -45519,7 +46020,7 @@ if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(433);
 }
 
-var emptyObject = __webpack_require__(45);
+var emptyObject = __webpack_require__(46);
 var invariant = __webpack_require__(3);
 var shallowEqual = __webpack_require__(60);
 var shouldUpdateReactComponent = __webpack_require__(80);
@@ -46538,8 +47039,8 @@ var DOMNamespaces = __webpack_require__(68);
 var DOMProperty = __webpack_require__(22);
 var DOMPropertyOperations = __webpack_require__(220);
 var EventPluginHub = __webpack_require__(37);
-var EventPluginRegistry = __webpack_require__(48);
-var ReactBrowserEventEmitter = __webpack_require__(49);
+var EventPluginRegistry = __webpack_require__(49);
+var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactDOMComponentFlags = __webpack_require__(221);
 var ReactDOMComponentTree = __webpack_require__(9);
 var ReactDOMInput = __webpack_require__(392);
@@ -46551,7 +47052,7 @@ var ReactMultiChild = __webpack_require__(411);
 var ReactServerRenderingTransaction = __webpack_require__(416);
 
 var emptyFunction = __webpack_require__(15);
-var escapeTextContentForBrowser = __webpack_require__(52);
+var escapeTextContentForBrowser = __webpack_require__(53);
 var invariant = __webpack_require__(3);
 var isEventSupported = __webpack_require__(79);
 var shallowEqual = __webpack_require__(60);
@@ -48501,7 +49002,7 @@ var DOMChildrenOperations = __webpack_require__(67);
 var DOMLazyTree = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(9);
 
-var escapeTextContentForBrowser = __webpack_require__(52);
+var escapeTextContentForBrowser = __webpack_require__(53);
 var invariant = __webpack_require__(3);
 var validateDOMNesting = __webpack_require__(81);
 
@@ -48971,7 +49472,7 @@ module.exports = {
 
 
 var DOMProperty = __webpack_require__(22);
-var EventPluginRegistry = __webpack_require__(48);
+var EventPluginRegistry = __webpack_require__(49);
 var ReactComponentTreeHook = __webpack_require__(14);
 
 var warning = __webpack_require__(4);
@@ -49458,7 +49959,7 @@ module.exports = ReactDebugTool;
 var _assign = __webpack_require__(8);
 
 var ReactUpdates = __webpack_require__(17);
-var Transaction = __webpack_require__(51);
+var Transaction = __webpack_require__(52);
 
 var emptyFunction = __webpack_require__(15);
 
@@ -49885,7 +50386,7 @@ var EventPluginHub = __webpack_require__(37);
 var EventPluginUtils = __webpack_require__(69);
 var ReactComponentEnvironment = __webpack_require__(72);
 var ReactEmptyComponent = __webpack_require__(223);
-var ReactBrowserEventEmitter = __webpack_require__(49);
+var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactHostComponent = __webpack_require__(225);
 var ReactUpdates = __webpack_require__(17);
 
@@ -50603,10 +51104,10 @@ var _assign = __webpack_require__(8);
 
 var CallbackQueue = __webpack_require__(219);
 var PooledClass = __webpack_require__(25);
-var ReactBrowserEventEmitter = __webpack_require__(49);
+var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactInputSelection = __webpack_require__(226);
 var ReactInstrumentation = __webpack_require__(16);
-var Transaction = __webpack_require__(51);
+var Transaction = __webpack_require__(52);
 var ReactUpdateQueue = __webpack_require__(74);
 
 /**
@@ -50880,7 +51381,7 @@ module.exports = ReactRef;
 var _assign = __webpack_require__(8);
 
 var PooledClass = __webpack_require__(25);
-var Transaction = __webpack_require__(51);
+var Transaction = __webpack_require__(52);
 var ReactInstrumentation = __webpack_require__(16);
 var ReactServerUpdateQueue = __webpack_require__(417);
 
@@ -51648,7 +52149,7 @@ var SyntheticClipboardEvent = __webpack_require__(423);
 var SyntheticEvent = __webpack_require__(20);
 var SyntheticFocusEvent = __webpack_require__(426);
 var SyntheticKeyboardEvent = __webpack_require__(428);
-var SyntheticMouseEvent = __webpack_require__(50);
+var SyntheticMouseEvent = __webpack_require__(51);
 var SyntheticDragEvent = __webpack_require__(425);
 var SyntheticTouchEvent = __webpack_require__(429);
 var SyntheticTransitionEvent = __webpack_require__(430);
@@ -51997,7 +52498,7 @@ module.exports = SyntheticCompositionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(50);
+var SyntheticMouseEvent = __webpack_require__(51);
 
 /**
  * @interface DragEvent
@@ -52304,7 +52805,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(50);
+var SyntheticMouseEvent = __webpack_require__(51);
 
 /**
  * @interface WheelEvent
@@ -53083,7 +53584,7 @@ module.exports = getVendorPrefixedEventName;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(52);
+var escapeTextContentForBrowser = __webpack_require__(53);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -54697,10 +55198,10 @@ var IndexLink = __WEBPACK_IMPORTED_MODULE_1_create_react_class___default()({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routerWarning__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Redirect__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(42);
 
 
 
@@ -54753,10 +55254,10 @@ var IndexRedirect = __WEBPACK_IMPORTED_MODULE_0_create_react_class___default()({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routerWarning__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RouteUtils__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(42);
 
 
 
@@ -54809,10 +55310,10 @@ var IndexRoute = __WEBPACK_IMPORTED_MODULE_0_create_react_class___default()({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_create_react_class__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RouteUtils__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(42);
 
 
 
@@ -54859,7 +55360,7 @@ var Route = __WEBPACK_IMPORTED_MODULE_0_create_react_class___default()({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -54868,7 +55369,7 @@ var Route = __WEBPACK_IMPORTED_MODULE_0_create_react_class___default()({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InternalPropTypes__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RouterContext__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__RouteUtils__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__RouterUtils__ = __webpack_require__(254);
@@ -55570,9 +56071,9 @@ function isActive(_ref, indexOnly, currentLocation, routes, params) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(46);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createMemoryHistory__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(257);
@@ -55893,7 +56394,7 @@ function matchRoutes(routes, location, callback, remainingPathname) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);

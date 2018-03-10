@@ -67,8 +67,8 @@ const patientRequest = new mongoose.Schema({
     userId: {type: ObjectId, ref: 'users'}, // Usuario del Htal que envia el mensaje
     message    : {type: String},
     dateMsg    : { type: Date, default: null}
-  }]
-
+  }],
+    planExterno : { type: String }
 }, { collections: 'patientRequest' })
 
 module.exports = mongoose.model('patientRequest', patientRequest);

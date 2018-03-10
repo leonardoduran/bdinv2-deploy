@@ -1,3 +1,6 @@
+// const mongoose = require('mongoose'),
+//   Schema = mongoose.Schema;
+
 const express = require('express');
 const router = express.Router();
 
@@ -5,6 +8,7 @@ const Hospitals = require('../../models/hospitals');
 const HealthCare = require('../../models/healthcares');
 const HealthCarePlans = require('../../models/healthcareplans');
 const errorHandler = require('../../controladores/errorHandler');
+// const ObjectId = mongoose.Schema.Types.ObjectId;
 
 router.get('/', function(req, res, next) {
   HealthCare.find({})
@@ -89,6 +93,51 @@ router.delete('/', function(req,res,next) {
   .catch(err => {
     return errorHandler.sendInternalServerError(res);
   })
+})
+
+router.put('/remove', function(req,res){
+  HealthCare.findByIdAndUpdate(
+    req.body.financiadorId,
+    {$pull: { "plans" : req.body.planId }}, function(err, result){
+        if(err){
+            console.log(err);
+        }
+        console.log("RESULT: " + result);
+    });
+    res.send('Done')
+})
+
+router.put('/add', function(req,res){
+  HealthCarePlans.findByIdAndUpdate(
+    req.body.planId,
+    {$push: { "hospitals" : req.body.newHospitalId }}, function(err, result){
+        if(err){
+            console.log(err);
+        }
+        console.log("RESULT: " + result);
+    });
+    res.send('Done')
+})
+
+router.put('/addPlan', function(req,res){
+
+  HealthCarePlans.create({name: req.body.txtNewPlan},
+    function (err,newPlan){
+      if (err) return handleError(err)
+
+console.log("Financiador",req.body.financiadorId)
+console.log("plan",newPlan)      
+      HealthCare.findByIdAndUpdate(
+        req.body.financiadorId,
+        {$push: { "plans" : newPlan._id }}, function(err, result){
+            if(err){
+                console.log(err);
+            }
+            console.log("RESULT: " + result);
+        });
+        res.send('Done')
+
+    })
 })
 
 module.exports = router;
