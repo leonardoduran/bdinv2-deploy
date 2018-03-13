@@ -68,7 +68,9 @@ const patientRequest = new mongoose.Schema({
     message    : {type: String},
     dateMsg    : { type: Date, default: null}
   }],
-    planExterno : { type: String }
+    planExterno : { type: String },
+    isCanceledByFin : {type : Boolean, default: false},
+    reasonRejectFin : { type: ObjectId, default: null, ref: 'reasonsrejectf'}
 }, { collections: 'patientRequest' })
 
 module.exports = mongoose.model('patientRequest', patientRequest);

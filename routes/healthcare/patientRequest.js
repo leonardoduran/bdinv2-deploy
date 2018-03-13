@@ -3,6 +3,7 @@ const app = express.Router();
 const moment = require('moment');
 
 const patientRequest = require('../../models/patientRequest');
+const reasonRejectF = require('../../models/reasonsrejectf');
 const hospitalsController = require('../../controladores/hospitals');
 const errorHandler = require('../../controladores/errorHandler');
 
@@ -126,5 +127,36 @@ app.put('/matched', function(req,res) {
     .then(saveData => res.send(saveData))
     .catch(error => {console.log(error); errorHandler.sendInternalServerError(res)})
 })
+
+
+app.get('/reasonsRejectF',function(req,res) {
+  reasonRejectF.find({})
+  .then(reasons =>{
+    res.send(reasons);
+  })
+  .catch(err => {
+    return errorHandler.sendInternalServerError(res);
+  })
+})
+
+app.put('/cancelPatient', function(req,res){
+  let patientId   = req.body.patientIdCancel;
+  let mot  = req.body.mot;
+
+  patientRequest.findByIdAndUpdate(
+    patientId,
+        {$set : {
+        	isCanceledByFin : true,
+        	reasonRejectFin : mot
+		}
+	},
+    {safe: true, upsert: true},
+    function(err, model) {
+        console.log(err);
+        res.send('OK');
+    }
+    )
+})
+
 
 module.exports = app; 
