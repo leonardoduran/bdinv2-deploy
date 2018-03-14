@@ -51,9 +51,11 @@ const moment = require('moment');
   .populate('userCreator','name')
   .populate('messages.hospitalId','name')
   .populate('messages.userId','name')
+  .populate('reasonRejectFin','reason')
   .sort({dateCreated:1})
   .exec()
   .then(data => {
+console.log(data)
     res.send(data)})
   .catch(error => {console.log(error); errorHandler.sendInternalServerError(res)});
 });

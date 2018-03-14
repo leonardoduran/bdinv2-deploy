@@ -33166,6 +33166,17 @@ function ViewTableReport(props) {
 				'td',
 				null,
 				patient.obs
+			),
+			patient.isCanceledByFin ? _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				'SI (',
+				patient.reasonRejectFin.reason,
+				')'
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				'NO'
 			)
 		);
 	});
@@ -33181,10 +33192,9 @@ function ViewTableReport(props) {
 			_react2.default.createElement(
 				'div',
 				{ className: 'row' },
-				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-xs-8 col-sm-6 col-lg-10 ', id: 'table_wrapper' },
+					{ className: 'col-xs-12 col-sm-12 col-lg-12', id: 'table_wrapper' },
 					_react2.default.createElement(
 						'table',
 						{ style: { border: "1px solid grey" }, className: 'table' },
@@ -33263,6 +33273,11 @@ function ViewTableReport(props) {
 									'th',
 									{ style: { border: "1px solid grey" } },
 									'Comentario'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Cancelado'
 								)
 							)
 						),
@@ -35991,7 +36006,7 @@ function ViewPatientRequestsMatchedTable(props) {
         null,
         ' '
       ),
-      _react2.default.createElement(
+      patient.isCanceledByFin ? _react2.default.createElement('td', null) : _react2.default.createElement(
         'td',
         null,
         _react2.default.createElement(
@@ -36119,6 +36134,9 @@ function ViewPatientRequestsPendingTable(props) {
     var setRowColor = function setRowColor(color) {
         return { backgroundColor: color };
     };
+    var setTachado = function setTachado() {
+        return { "text-decoration": "line-through" };
+    };
 
     var buildPendingTable = function buildPendingTable() {
         var listOfPending = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -36147,7 +36165,7 @@ function ViewPatientRequestsPendingTable(props) {
     };
 
     var tableBody = props.listOfPending.map(function (pending, i) {
-        var colorStyle = pending.isCanceledByFin ? setRowColor('orchid') : pending.timeout ? setRowColor('pink') : pending.acceptedByHospital.length ? setRowColor('lightgreen') : pending.viewedByHospitals.length ? setRowColor('lightblue') : setRowColor(null);
+        var colorStyle = pending.isCanceledByFin ? setTachado() : pending.timeout ? setRowColor('pink') : pending.acceptedByHospital.length ? setRowColor('lightgreen') : pending.viewedByHospitals.length ? setRowColor('lightblue') : setRowColor(null);
 
         return _react2.default.createElement(
             'tr',
@@ -36218,7 +36236,7 @@ function ViewPatientRequestsPendingTable(props) {
                     _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
                 )
             ) : _react2.default.createElement('td', { style: tableStyle }),
-            _react2.default.createElement(
+            pending.isCanceledByFin ? _react2.default.createElement('td', { style: tableStyle }) : _react2.default.createElement(
                 'td',
                 null,
                 _react2.default.createElement(
@@ -36311,9 +36329,6 @@ function ViewPatientRequestsPendingTable(props) {
 }
 exports.default = ViewPatientRequestsPendingTable;
 
-// style={{border:"1px solid grey"}}
-// col-xs-8 col-sm-6 col-lg-10
-
 /***/ }),
 /* 297 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -36342,10 +36357,10 @@ function TableViewRequestDetails(props) {
 	var buildDetailTable = function buildDetailTable() {
 		var listOfPending = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 		var acceptedByHospital = arguments[1];
-		var idPending = arguments[2];
+		var pending = arguments[2];
 
 		return listOfPending.map(function (eachPending) {
-			return acceptedByHospital ? _react2.default.createElement(
+			return acceptedByHospital && !pending.isCanceledByFin ? _react2.default.createElement(
 				'p',
 				{ key: eachPending._id },
 				eachPending.hospital.name,
@@ -36353,7 +36368,7 @@ function TableViewRequestDetails(props) {
 					'button',
 					{ type: 'button', className: 'btn btn-success btn-xs', style: marginLeft,
 						onClick: function onClick() {
-							return props.matchHospital(idPending, eachPending.hospital._id);
+							return props.matchHospital(pending._id, eachPending.hospital._id);
 						} },
 					_react2.default.createElement('span', { className: 'glyphicon glyphicon-ok' })
 				)
@@ -36386,7 +36401,7 @@ function TableViewRequestDetails(props) {
 		_react2.default.createElement(
 			'td',
 			{ style: tableStyle },
-			buildDetailTable(props.patientDetail.acceptedByHospital, true, props.patientDetail._id)
+			buildDetailTable(props.patientDetail.acceptedByHospital, true, props.patientDetail)
 		)
 	);
 
@@ -36435,7 +36450,22 @@ function TableViewRequestDetails(props) {
 
 exports.default = TableViewRequestDetails;
 
-// {(withMsj && buildMessages(eachPending.messages,eachPending.hospital._id) )? <p>Btn</p> : null}
+// const buildDetailTable = (listOfPending = [], acceptedByHospital, idPending) => {
+// 	return listOfPending.map(eachPending =>
+// 		acceptedByHospital ?
+// 		<p key={eachPending._id} >{eachPending.hospital.name}
+//      			<button type="button" className="btn btn-success btn-xs" style={marginLeft}
+//      				onClick={() => props.matchHospital(idPending,eachPending.hospital._id)}>
+//        			<span className="glyphicon glyphicon-ok"></span>
+//      			</button>
+//  			</p>
+//    		:
+//    		<p key={eachPending._id}>{eachPending.hospital.name}</p>
+
+// 	)
+// }
+
+// {buildDetailTable(props.patientDetail.acceptedByHospital,true, props.patientDetail._id)}
 
 /***/ }),
 /* 298 */
@@ -37221,6 +37251,17 @@ function ViewTableReport(props) {
 				'td',
 				null,
 				patient.obs
+			),
+			patient.isCanceledByFin ? _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				'SI (',
+				patient.reasonRejectFin.reason,
+				')'
+			) : _react2.default.createElement(
+				'td',
+				{ style: tableStyle },
+				'NO'
 			)
 		);
 	});
@@ -37236,10 +37277,9 @@ function ViewTableReport(props) {
 			_react2.default.createElement(
 				'div',
 				{ className: 'row' },
-				_react2.default.createElement('div', { className: 'col-xs-2 col-sm-4 col-lg-1' }),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-xs-8 col-sm-6 col-lg-10 ', id: 'table_wrapper' },
+					{ className: 'col-xs-12 col-sm-12 col-lg-12', id: 'table_wrapper' },
 					_react2.default.createElement(
 						'table',
 						{ style: { border: "1px solid grey" }, className: 'table' },
@@ -37318,6 +37358,11 @@ function ViewTableReport(props) {
 									'th',
 									{ style: { border: "1px solid grey" } },
 									'Comentario'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
+									'Cancelado'
 								)
 							)
 						),
@@ -37336,6 +37381,9 @@ function ViewTableReport(props) {
 exports.default = ViewTableReport;
 
 // <td>{patient.reasonReject.reason}</td>
+
+// <div className="col-xs-2 col-sm-4 col-lg-1"></div>
+// <div className="col-xs-8 col-sm-6 col-lg-10 " id="table_wrapper">
 
 /***/ }),
 /* 302 */
@@ -37494,7 +37542,11 @@ function ViewPatientRequestsViewedTable(props) {
 				'div',
 				null,
 				_react2.default.createElement('td', null),
-				_react2.default.createElement('td', null),
+				_react2.default.createElement(
+					'td',
+					null,
+					'CANCELADO'
+				),
 				_react2.default.createElement('td', null)
 			) : _react2.default.createElement(
 				'div',
@@ -37535,11 +37587,6 @@ function ViewPatientRequestsViewedTable(props) {
 						_react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
 					)
 				)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.isCanceledByFin ? 'CANCELADO' : ''
 			)
 		);
 	});
@@ -41235,13 +41282,17 @@ var ViewReport = function (_React$Component) {
                                     'Limpiar'
                                 ),
                                 btnExcel
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                null,
-                                patients
                             )
                         )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-xs-12 col-sm-12 col-lg-12' },
+                        patients
                     )
                 )
             );
