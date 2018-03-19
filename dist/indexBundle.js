@@ -11552,7 +11552,6 @@ function matchWithHospital(patientRequestId, idHospital) {
 }
 
 function getReasonsF(reasonsF) {
-  console.log("Reasons", reasonsF);
   return {
     type: "RECEIVE_REASONS_F",
     reasonsF: reasonsF
@@ -36652,7 +36651,8 @@ function ViewPatientRequestsAcceptedTable(props) {
 								'th',
 								{ style: { border: "1px solid grey" } },
 								'Confirmado'
-							)
+							),
+							_react2.default.createElement('th', { style: { border: "1px solid grey" } })
 						)
 					),
 					_react2.default.createElement(
@@ -36866,15 +36866,6 @@ function ViewPatientRequestsPendingTable(props) {
                 { style: { border: "1px solid grey" } },
                 'Fecha/Hora'
               ),
-              _react2.default.createElement(
-                'th',
-                { style: { border: "1px solid grey" } },
-                _react2.default.createElement(
-                  'a',
-                  { style: { cursor: "pointer" }, onClick: props.setAllViewed },
-                  'Ver Todos'
-                )
-              ),
               _react2.default.createElement('th', { style: { border: "1px solid grey" } }),
               _react2.default.createElement('th', { style: { border: "1px solid grey" } })
             )
@@ -36890,6 +36881,10 @@ function ViewPatientRequestsPendingTable(props) {
   );
 }
 exports.default = ViewPatientRequestsPendingTable;
+
+// <th style={{border:"1px solid grey"}}>
+//   <a style={{cursor:"pointer"}} onClick={props.setAllViewed}>Ver Todos</a>
+// </th>
 
 /***/ }),
 /* 300 */
@@ -37155,7 +37150,9 @@ function ViewTableReport(props) {
 			return request.matchedDate && props.hospitalId === request.hospital._id ? _react2.default.createElement(
 				'p',
 				null,
-				'SI'
+				'SI (',
+				request.userFinanciador.name,
+				')'
 			) : null;
 		});
 	};
@@ -37220,6 +37217,11 @@ function ViewTableReport(props) {
 			_react2.default.createElement(
 				'td',
 				null,
+				patient.obs
+			),
+			_react2.default.createElement(
+				'td',
+				null,
 				formattedDate(patient.dateCreated)
 			),
 			_react2.default.createElement(
@@ -37246,11 +37248,6 @@ function ViewTableReport(props) {
 				'td',
 				null,
 				buildDateConfirm(patient.hospitalsAndState)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.obs
 			),
 			patient.isCanceledByFin ? _react2.default.createElement(
 				'td',
@@ -37327,6 +37324,11 @@ function ViewTableReport(props) {
 								_react2.default.createElement(
 									'th',
 									{ style: { border: "1px solid grey" } },
+									'Comentario'
+								),
+								_react2.default.createElement(
+									'th',
+									{ style: { border: "1px solid grey" } },
 									'Fecha creaci\xF3n'
 								),
 								_react2.default.createElement(
@@ -37353,11 +37355,6 @@ function ViewTableReport(props) {
 									'th',
 									{ style: { border: "1px solid grey" } },
 									'Fecha confirmaci\xF3n'
-								),
-								_react2.default.createElement(
-									'th',
-									{ style: { border: "1px solid grey" } },
-									'Comentario'
 								),
 								_react2.default.createElement(
 									'th',
@@ -39808,7 +39805,7 @@ var ViewPatientRequestsMatched = function (_React$Component) {
       this.props.fetchMatchedPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchMatchedPatientRequests();
-      }, 1000 * 60);
+      }, 1000 * 10);
     }
   }, {
     key: 'componentWillUnmount',
@@ -40055,7 +40052,7 @@ var ViewPatientRequestsPending = function (_React$Component) {
       this.props.fetchPendingPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchPendingPatientRequests();
-      }, 1000 * 60);
+      }, 1000 * 10);
     }
   }, {
     key: 'componentWillUnmount',
@@ -40097,6 +40094,7 @@ var ViewPatientRequestsPending = function (_React$Component) {
         return;
       }
       this.props.setCancelToPatient('GENERADOS', this.state.patientIdCancel, mot);
+      this.props.fetchPendingPatientRequests();
       this.setState({ modalRejectsIsOpen: false, patientIdCancel: null });
     }
   }, {
@@ -40117,11 +40115,15 @@ var ViewPatientRequestsPending = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var tableRequests = this.props.isRequesting ? _react2.default.createElement(
-        'p',
-        null,
-        'Cargando..'
-      ) : _react2.default.createElement(_TableViewPendingPatientRequests2.default, {
+      // const tableRequests = this.props.isRequesting ? <p>Cargando..</p>
+      // : <TableViewPendingPatientRequests 
+      //     listOfPending= {this.props.pendingList}
+      //     openModal={this.openModal}
+      //     verMensajes={this.verMensajes}
+      //     cancelPatientRequest={this.cancelPatientRequest}
+      //   />
+
+      var tableRequests = _react2.default.createElement(_TableViewPendingPatientRequests2.default, {
         listOfPending: this.props.pendingList,
         openModal: this.openModal,
         verMensajes: this.verMensajes,
@@ -40567,7 +40569,10 @@ var ViewPatientRequest = function (_React$Component) {
             // },1000*60)
             this.idInterval = setInterval(function () {
                 _this2.props.fetchGetPatientsCheck(true);
-            }, 1000 * 10);
+                if (_this2.props.newPatients) {
+                    _this2.props.fetchGetPatients();
+                }
+            }, 500); //1000*10
         }
     }, {
         key: 'componentWillUnmount',
@@ -40615,19 +40620,6 @@ var ViewPatientRequest = function (_React$Component) {
         key: 'render',
         value: function render() {
             //      alert(this.props.isRequesting)
-            var btnNewPatients = this.props.newPatients ? _react2.default.createElement(
-                'div',
-                { className: 'no-padding text-center' },
-                _react2.default.createElement('div', { className: 'col-sm-1 col-md-1 col-lg-1 col-xl-1' }),
-                _react2.default.createElement(
-                    'button',
-                    { title: 'Nuevas solicitudes', type: 'button',
-                        className: 'btn btn-info col-sm-10 col-md-10 col-lg-10 col-xl-10',
-                        onClick: this.getNewPatients.bind(this) },
-                    'Nuevas Solicitudes'
-                ),
-                _react2.default.createElement('div', { className: 'col-sm-1 col-md-1 col-lg-1 col-xl-1' })
-            ) : null;
 
             var patients = this.props.isRequesting ? _react2.default.createElement(
                 'p',
@@ -40681,7 +40673,6 @@ var ViewPatientRequest = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                btnNewPatients,
                 patients,
                 _react2.default.createElement(
                     _reactModal2.default,
@@ -40710,6 +40701,19 @@ var ViewPatientRequest = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ViewPatientRequest);
+
+// let btnNewPatients  = (false && this.props.newPatients) ? 
+//     <div className="no-padding text-center">
+//         <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+//         <button title="Nuevas solicitudes" type="button" 
+//                 className="btn btn-info col-sm-10 col-md-10 col-lg-10 col-xl-10"
+//             onClick={this.getNewPatients.bind(this)}>
+//             Nuevas Solicitudes
+//         </button>
+//         <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+//     </div>
+// : null
+// {btnNewPatients}
 
 /***/ }),
 /* 323 */
@@ -41978,7 +41982,8 @@ function patientRequestReducers() {
     pendingList: [],
     matchedList: [],
     diagnosis: [],
-    reasonsF: []
+    reasonsF: [],
+    thereArePatientsChange: false
     // valueDiagnosisSuggest:''
   };
   var action = arguments[1];
@@ -42004,10 +42009,12 @@ function patientRequestReducers() {
         pendingList: [],
         matchedList: [],
         diagnosis: [],
-        reasonsF: []
+        reasonsF: [],
+        thereArePatientsChange: false
       });
     case 'REQUEST_CREATE':
       return Object.assign({}, state, { isRequesting: true });
+
     case 'RECEIVE_CREATED_PATIENT':
       return Object.assign({}, state, {
         isRequesting: false,
@@ -42021,6 +42028,7 @@ function patientRequestReducers() {
         dateCreated: action.input.dateCreated,
         hospitalsRequested: action.input.hospitalsAndState
       });
+
     case 'FAILED_TO_CREATE':
       return Object.assign({}, state, {
         isRequesting: false,
@@ -42029,6 +42037,7 @@ function patientRequestReducers() {
       });
     case 'REQUEST_LIST':
       return Object.assign({}, state, { isRequesting: true });
+
     case 'RECEIVE_PLANS':
       return Object.assign({}, state, {
         isRequesting: false,
@@ -42049,12 +42058,16 @@ function patientRequestReducers() {
       });
     case 'RESET_CREATE_SUCCESS':
       return Object.assign({}, state, { createSuccess: false });
+
     case 'RECEIVE_PENDING':
+      console.log('RECEIVE_PENDING');
       return Object.assign({}, state, {
         isRequesting: false,
         receivePending: true,
+        thereArePatientsChange: false,
         pendingList: action.pending
       });
+
     case 'RECEIVE_MATCHED':
       return Object.assign({}, state, {
         isRequesting: false,
@@ -42066,6 +42079,13 @@ function patientRequestReducers() {
         isRequesting: false,
         reasonsF: action.reasonsF
       });
+
+    case 'THERE_ARE_PATIENTS_CHANGE':
+      console.log('THERE_ARE_PATIENTS_CHANGE');
+      return Object.assign({}, state, {
+        thereArePatientsChange: true
+      });
+
     default:
       return state;
   }

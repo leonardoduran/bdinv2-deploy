@@ -55,7 +55,6 @@ const moment = require('moment');
   .sort({dateCreated:1})
   .exec()
   .then(data => {
-console.log(data)
     res.send(data)})
   .catch(error => {console.log(error); errorHandler.sendInternalServerError(res)});
 });

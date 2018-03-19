@@ -26,9 +26,9 @@ router.post('/login',
   res.send(userData);
 });
 
-router.get('/login', authValidator.isLoggedIn, function(req, res) {
-  res.send(req.user)
-})
+// router.get('/login', authValidator.isLoggedIn, function(req, res) {
+//   res.send(req.user)
+// })
 
 router.get('/logout', userMiddleWare.logEndSesion, function(req, res, next) {
   req.logout();

@@ -9,7 +9,10 @@ module.exports = {
 	},
 	
 	isBedinUser : (req,res,next) => {
-		if(!req.isAuthenticated()) return errorHandler.sendUnauthorized(res); 
+		if(!req.isAuthenticated()) {
+			console.log("isBedinUser");
+			return errorHandler.sendUnauthorized(res);
+		} 
 		users.findById(req.user._id)
 		.then(user => { 
 			if (user.type === 'Bedin') {
@@ -18,7 +21,10 @@ module.exports = {
 				else
 					return errorHandler.sendUnlogged(res);
 			}
-			else return errorHandler.sendUnauthorized(res);
+			else {
+				console.log("isBedinUser 2")
+				return errorHandler.sendUnauthorized(res);
+			}
 		})
 		.catch(err => {
 			next(err)
@@ -27,8 +33,10 @@ module.exports = {
 	},
 
 	isHospitalUser : (req,res,next) => {
-		if(!req.isAuthenticated()) {
-			return errorHandler.sendUnauthorized(res);}
+		// if(!req.isAuthenticated()) {
+		// 	console.log("isHospitalUser")
+		// 	return errorHandler.sendUnauthorized(res);
+		// }
 		users.findById(req.user._id) 
 		.then(user => {
 			if (user.type === 'Hospital') {
@@ -37,7 +45,10 @@ module.exports = {
 				else
 					return errorHandler.sendUnlogged(res);
 			}
-			else return errorHandler.sendUnauthorized(res);
+			else {
+				console.log("isHospitalUser 2")
+				return errorHandler.sendUnauthorized(res);
+			}
 		})
 		.catch(err => {
 			return errorHandler.sendInternalServerError(res);
@@ -45,7 +56,10 @@ module.exports = {
 	},
 
 	isFinanciadorUser : (req,res,next) => {
-		if(!req.isAuthenticated()) return errorHandler.sendUnauthorized(res);
+		// if(!req.isAuthenticated()) {
+		// 	console.log("isFinanciadorUser")
+		// 	return errorHandler.sendUnauthorized(res);
+		// }
 		users.findById(req.user._id)
 		.then(user => { 
 			if (user.type === 'Financiador') {
@@ -54,7 +68,10 @@ module.exports = {
 				else
 					return errorHandler.sendUnlogged(res);
 			}
-			else return errorHandler.sendUnauthorized(res);
+			else {
+				console.log("isFinanciadorUser 2")
+				return errorHandler.sendUnauthorized(res);
+			}
 		})
 		.catch(err => {
 			return errorHandler.sendInternalServerError(res);
