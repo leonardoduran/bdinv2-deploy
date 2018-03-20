@@ -35949,15 +35949,56 @@ function ViewPatientRequestsMatchedTable(props) {
   var setRowColor = function setRowColor(color) {
     return { backgroundColor: color };
   };
+  var setTachado = function setTachado() {
+    return { "text-decoration": "line-through" };
+  };
   var marginLeft = { marginLeft: "5px" };
+  // style={Object.assign({}, tableStyle, colorStyle)}
+
+  // <tr style={Object.assign({}, i%2==0 ? tableStyle : tableStyle1)} key={patient._id} title= {patient.obs ? patient.obs : null}>
+  // <tr style={i%2==0 ? tableStyle : tableStyle1} key={patient._id} title= {patient.obs ? patient.obs : null}>
   var tableBody = props.patients.map(function (patient, i) {
+    var typeStyle = patient.isCanceledByFin ? setTachado() : null;
     return _react2.default.createElement(
       'tr',
-      { style: i % 2 == 0 ? tableStyle : tableStyle1, key: patient._id, title: patient.obs ? patient.obs : null },
+      { style: Object.assign({}, i % 2 == 0 ? tableStyle : tableStyle1, typeStyle), key: patient._id, title: patient.obs ? patient.obs : null },
+      _react2.default.createElement(
+        'td',
+        null,
+        formattedDate(patient.dateCreated)
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.userCreator.name
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.healthcare.name
+      ),
+      patient.planExterno ? _react2.default.createElement(
+        'td',
+        { style: tableStyle },
+        patient.healthcareplan.name,
+        ' (',
+        patient.planExterno,
+        ') '
+      ) : _react2.default.createElement(
+        'td',
+        { style: tableStyle },
+        patient.healthcareplan.name,
+        ' '
+      ),
       _react2.default.createElement(
         'td',
         null,
         patient.dni
+      ),
+      _react2.default.createElement(
+        'td',
+        null,
+        patient.age
       ),
       _react2.default.createElement(
         'td',
@@ -35967,17 +36008,7 @@ function ViewPatientRequestsMatchedTable(props) {
       _react2.default.createElement(
         'td',
         null,
-        patient.complexity
-      ),
-      _react2.default.createElement(
-        'td',
-        null,
         patient.hospitalsAndState[0].hospital.name
-      ),
-      _react2.default.createElement(
-        'td',
-        { title: formattedDate(patient.dateCreated) },
-        patient.userCreator ? patient.userCreator.name : ''
       ),
       _react2.default.createElement(
         'td',
@@ -36000,12 +36031,12 @@ function ViewPatientRequestsMatchedTable(props) {
             } },
           _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
         )
-      ) : _react2.default.createElement(
+      ) : _react2.default.createElement('td', null),
+      patient.isCanceledByFin ? _react2.default.createElement(
         'td',
         null,
-        ' '
-      ),
-      patient.isCanceledByFin ? _react2.default.createElement('td', null) : _react2.default.createElement(
+        patient.reasonRejectFin ? patient.reasonRejectFin.reason : null
+      ) : _react2.default.createElement(
         'td',
         null,
         _react2.default.createElement(
@@ -36040,7 +36071,32 @@ function ViewPatientRequestsMatchedTable(props) {
               _react2.default.createElement(
                 'th',
                 { style: { border: "1px solid grey" } },
+                'Fecha'
+              ),
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
+                'Operador Financiador'
+              ),
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
+                'Financiador'
+              ),
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
+                'Plan'
+              ),
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
                 'Paciente'
+              ),
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
+                'Edad'
               ),
               _react2.default.createElement(
                 'th',
@@ -36050,17 +36106,7 @@ function ViewPatientRequestsMatchedTable(props) {
               _react2.default.createElement(
                 'th',
                 { style: { border: "1px solid grey" } },
-                'Complejidad'
-              ),
-              _react2.default.createElement(
-                'th',
-                { style: { border: "1px solid grey" } },
                 'Instituci\xF3n'
-              ),
-              _react2.default.createElement(
-                'th',
-                { style: { border: "1px solid grey" } },
-                'Gener\xF3'
               ),
               _react2.default.createElement(
                 'th',
@@ -36077,7 +36123,11 @@ function ViewPatientRequestsMatchedTable(props) {
                 { style: { border: "1px solid grey" } },
                 'Mensajes'
               ),
-              _react2.default.createElement('th', { style: { border: "1px solid grey" } })
+              _react2.default.createElement(
+                'th',
+                { style: { border: "1px solid grey" } },
+                'Cancelado'
+              )
             )
           ),
           _react2.default.createElement(
@@ -36164,7 +36214,7 @@ function ViewPatientRequestsPendingTable(props) {
     };
 
     var tableBody = props.listOfPending.map(function (pending, i) {
-        var colorStyle = pending.isCanceledByFin ? setTachado() : pending.timeout ? setRowColor('pink') : pending.acceptedByHospital.length ? setRowColor('lightgreen') : pending.viewedByHospitals.length ? setRowColor('lightblue') : setRowColor(null);
+        var colorStyle = pending.isCanceledByFin ? setTachado() : pending.timeout ? setRowColor('pink') : pending.acceptedByHospital.length ? setRowColor('lightgreen') : pending.viewedByHospitals.length ? setRowColor('lightblue') : pending.rejectedByHospital.length ? setRowColor('orchid') : setRowColor(null);
 
         return _react2.default.createElement(
             'tr',
@@ -36500,8 +36550,26 @@ function ViewPatientRequestsAcceptedTable(props) {
 		// return moment(date).format('DD/MM/YYYY || HH:mm:ss');
 		return ((0, _moment2.default)(date).isSame((0, _moment2.default)(), 'day') ? 'HOY  ' : 'AYER ') + (0, _moment2.default)(date).format('HH:mm:ss');
 	};
-	var checkMatch = function checkMatch(idHospital, matchedDate, isConfirm) {
-		return idHospital == _store2.default.getState().authentication.institucionCode && matchedDate ? _react2.default.createElement(
+
+	var checkMatch = function checkMatch(idHospital, matchedDate, isConfirm, isCanceled) {
+		return isCanceled ? idHospital == _store2.default.getState().authentication.institucionCode && matchedDate ? _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'p',
+				null,
+				_react2.default.createElement('span', { style: marginLeft, className: 'glyphicon glyphicon-ok' })
+			),
+			_react2.default.createElement(
+				'p',
+				null,
+				'CANCELADO'
+			)
+		) : isConfirm ? _react2.default.createElement(
+			'p',
+			null,
+			_react2.default.createElement('span', { style: marginLeft, className: 'glyphicon glyphicon-remove' })
+		) : _react2.default.createElement('p', null) : idHospital == _store2.default.getState().authentication.institucionCode && matchedDate ? _react2.default.createElement(
 			'p',
 			null,
 			_react2.default.createElement('span', { style: marginLeft, className: 'glyphicon glyphicon-ok' })
@@ -36511,6 +36579,25 @@ function ViewPatientRequestsAcceptedTable(props) {
 			_react2.default.createElement('span', { style: marginLeft, className: 'glyphicon glyphicon-remove' })
 		) : _react2.default.createElement('p', null);
 	};
+
+	// const checkMatch = (idHospital,matchedDate, isConfirm, isCanceled) => 
+	// (
+	// 	(idHospital == store.getState().authentication.institucionCode && matchedDate) ? 
+	// 	(
+	// 		<p>
+	// 			<span style = {marginLeft} className="glyphicon glyphicon-ok"></span>
+	// 		</p>	
+	// 	)		
+	// 	:
+	// 	(isConfirm) ? 
+	// 	<p>
+	// 		<span style = {marginLeft} className="glyphicon glyphicon-remove"></span>
+	// 	</p>:
+	// 	<p>
+	// 	</p>
+	// )
+
+
 	var setRowColor = function setRowColor(color) {
 		return { backgroundColor: color };
 	};
@@ -36574,12 +36661,7 @@ function ViewPatientRequestsAcceptedTable(props) {
 			_react2.default.createElement(
 				'td',
 				null,
-				checkMatch(patient.hospitalsAndState ? patient.hospitalsAndState.hospital : 0, patient.hospitalsAndState ? patient.hospitalsAndState.matchedDate : 0, patient.isConfirm)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.isCanceledByFin ? 'CANCELADO' : ''
+				checkMatch(patient.hospitalsAndState ? patient.hospitalsAndState.hospital : 0, patient.hospitalsAndState ? patient.hospitalsAndState.matchedDate : 0, patient.isConfirm, patient.isCanceledByFin)
 			)
 		);
 	});
@@ -36651,8 +36733,7 @@ function ViewPatientRequestsAcceptedTable(props) {
 								'th',
 								{ style: { border: "1px solid grey" } },
 								'Confirmado'
-							),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } })
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -36981,11 +37062,6 @@ function ViewPatientRequestsRejectedTable(props) {
 				'td',
 				null,
 				formattedDate(patient.dateCreated)
-			),
-			_react2.default.createElement(
-				'td',
-				null,
-				patient.isCanceledByFin ? 'CANCELADO' : ''
 			)
 		);
 	});
@@ -39805,7 +39881,7 @@ var ViewPatientRequestsMatched = function (_React$Component) {
       this.props.fetchMatchedPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchMatchedPatientRequests();
-      }, 1000 * 10);
+      }, 500 * 10);
     }
   }, {
     key: 'componentWillUnmount',
@@ -39846,11 +39922,8 @@ var ViewPatientRequestsMatched = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var tableRequests = this.props.isRequesting ? _react2.default.createElement(
-        'p',
-        null,
-        'Cargando..'
-      ) : _react2.default.createElement(_TableViewMatchedPatientRequests2.default, {
+      // const tableRequests = this.props.isRequesting ? <p>Cargando..</p> :
+      var tableRequests = _react2.default.createElement(_TableViewMatchedPatientRequests2.default, {
         patients: this.props.matchedList,
         verMensajes: this.verMensajes,
         cancelPatientRequest: this.cancelPatientRequest
@@ -40052,7 +40125,7 @@ var ViewPatientRequestsPending = function (_React$Component) {
       this.props.fetchPendingPatientRequests();
       this.idInterval = setInterval(function () {
         _this2.props.fetchPendingPatientRequests();
-      }, 1000 * 10);
+      }, 500 * 10);
     }
   }, {
     key: 'componentWillUnmount',
