@@ -37547,13 +37547,16 @@ function ViewPatientRequestsViewedTable(props) {
 				null,
 				formattedDate(patient.dateCreated)
 			),
-			_react2.default.createElement('td', null),
-			_react2.default.createElement('td', null),
-			_react2.default.createElement('td', null),
 			_react2.default.createElement(
-				'td',
+				'div',
 				null,
-				patient.isCanceledByFin ? 'CANCELADO' : ''
+				_react2.default.createElement('td', null),
+				_react2.default.createElement(
+					'td',
+					null,
+					patient.isCanceledByFin ? 'CANCELADO' : 'FINALIZADO'
+				),
+				_react2.default.createElement('td', null)
 			)
 		) : _react2.default.createElement(
 			'tr',
@@ -37729,8 +37732,6 @@ function ViewPatientRequestsViewedTable(props) {
 								{ style: { border: "1px solid grey" } },
 								'Fecha/Hora'
 							),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
-							_react2.default.createElement('th', { style: { border: "1px solid grey" } }),
 							_react2.default.createElement('th', { style: { border: "1px solid grey" } })
 						)
 					),
