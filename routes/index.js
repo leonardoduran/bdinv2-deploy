@@ -20,7 +20,8 @@ router.post('/login',
       type : req.user.type,
       id: req.user._id,
       data : req.user.data,
-      institucionCode : req.user.osCode ? req.user.osCode : req.user.hospitalCode
+      institucionCode : req.user.osCode ? req.user.osCode : req.user.hospitalCode,
+      rol : req.user.rol
       // req.user.instCode= data.osCode;
     }
   res.send(userData);
