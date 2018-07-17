@@ -16,6 +16,7 @@ const app = express();
 require('./config/mongoose')
 require('./config/passport-mongoose')(app);
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -27,7 +28,6 @@ app.use('/bedin', indexBedin);
 app.use('/healthcare', indexHealthcare);
 app.use('/hospital', indexHospital);
 app.use('/patient', patient);
-app.use(cors());
 const controllerHealthcare = require('./controladores/healthcare');
 controllerHealthcare.setPatientTimeOut();
 //app.use('/bedin/healthcares', healthcares)
