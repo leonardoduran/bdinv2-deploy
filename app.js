@@ -16,7 +16,7 @@ const cors = require('./controladores/cors');
 require('./config/mongoose')
 require('./config/passport-mongoose')(app);
 app.use(logger('dev'));
-app.use(cors());
+app.use(cors);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/public', express.static(path.join(__dirname, 'public')));
