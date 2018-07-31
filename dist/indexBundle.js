@@ -7825,7 +7825,8 @@ function failedHistoricalPatients(err) {
 function fecthHistoricalPatients(dateFrom, dateTo, hospitalId, healthcareId) {
   return function (dispatch) {
     dispatch(gettingHistoricalPatients());
-    return fetch('./patient/getAllWithFilter?dateFrom=' + dateFrom + '&dateTo=' + dateTo + '&hospitalId=' + hospitalId + '&healthcareId=' + healthcareId, {
+    // return fetch(`./patient/getAllWithFilter?dateFrom=${dateFrom}&dateTo=${dateTo}&hospitalId=${hospitalId}&healthcareId=${healthcareId}`, {
+    return fetch('./patient/createExcel?dateFrom=' + dateFrom + '&dateTo=' + dateTo + '&hospitalId=' + hospitalId + '&healthcareId=' + healthcareId, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -38095,8 +38096,8 @@ var BedinUserViewData = function (_React$Component) {
 	}
 
 	_createClass(BedinUserViewData, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			this.props.fetchGetUsersByType('Bedin');
 		}
 	}, {
@@ -38464,8 +38465,8 @@ var FinanciadorUserViewData = function (_React$Component) {
 	}
 
 	_createClass(FinanciadorUserViewData, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			this.props.fetchGetUsersByType('Financiador');
 		}
 	}, {
@@ -38961,8 +38962,8 @@ var HospitalUserForm = function (_React$Component) {
   }
 
   _createClass(HospitalUserForm, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       this.props.fetchHospitalList();
     }
   }, {
@@ -39064,8 +39065,8 @@ var HospitalUserViewData = function (_React$Component) {
 	}
 
 	_createClass(HospitalUserViewData, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			this.props.fetchGetUsersByType('Hospital');
 		}
 	}, {
@@ -39149,8 +39150,8 @@ var HospitalDataView = function (_React$Component) {
 	}
 
 	_createClass(HospitalDataView, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			this.props.fetchHospitals();
 		}
 	}, {
@@ -39331,8 +39332,8 @@ var PerfilContainer = function (_React$Component) {
 	}
 
 	_createClass(PerfilContainer, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			this.props.fetchGetUserById();
 		}
 	}, {
@@ -39480,8 +39481,8 @@ var CreatePatientRequest = function (_React$Component) {
   }
 
   _createClass(CreatePatientRequest, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       this.props.fetchPlanList();
       this.props.fetchDiagnosis();
     }
@@ -39781,7 +39782,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var navBarData = {
+var navBarDataUser = {
+	linkArray: [{
+		route: "/Financiador/createrequest",
+
+		name: "Generar Solicitud"
+	}, {
+		route: "/Financiador/viewpending",
+		name: "Solicitudes Generadas"
+	}, {
+		route: "/Financiador/viewmatched",
+		name: "Solicitudes Confirmadas"
+	}],
+	logo: '/public/img/logo_original.jpg',
+	userType: 'Financiador',
+	color: '#3755bb',
+	rolUser: 'user'
+
+};
+
+var navBarDataSupervisor = {
 	linkArray: [{
 		route: "/Financiador/createrequest",
 
@@ -39798,9 +39818,8 @@ var navBarData = {
 	}],
 	logo: '/public/img/logo_original.jpg',
 	userType: 'Financiador',
-
-	color: '#3755bb'
-
+	color: '#3755bb',
+	rolUser: 'supervisor'
 };
 
 function mapStateToProps(state) {
@@ -39808,7 +39827,8 @@ function mapStateToProps(state) {
 		isRequesting: state.authentication.isRequesting,
 		isLoggedIn: state.authentication.isLoggedIn,
 		username: state.authentication.userName,
-		userId: state.authentication.userId
+		userId: state.authentication.userId,
+		rol: state.authentication.rolUser
 	};
 }
 
@@ -39850,7 +39870,7 @@ var FinanciadorHome = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_GlobalNavbar2.default, { data: navBarData,
+				_react2.default.createElement(_GlobalNavbar2.default, { data: this.props.rol.toLowerCase() == 'supervisor' ? navBarDataSupervisor : navBarDataUser,
 					logOut: this.logOut,
 					username: this.props.username,
 					userId: this.props.userId
@@ -39959,8 +39979,8 @@ var ViewPatientRequestsMatched = function (_React$Component) {
   }
 
   _createClass(ViewPatientRequestsMatched, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       var _this2 = this;
 
       this.props.fetchReasonRejectFin();
@@ -40203,8 +40223,8 @@ var ViewPatientRequestsPending = function (_React$Component) {
   }
 
   _createClass(ViewPatientRequestsPending, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       var _this2 = this;
 
       this.props.fetchReasonRejectFin();
@@ -40433,7 +40453,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var navBarData = {
+var navBarDataSupervisor = {
 	linkArray: [{
 		route: "/Hospital/viewpending",
 		name: "Pendientes"
@@ -40455,8 +40475,32 @@ var navBarData = {
 	}],
 	logo: '/public/img/logo_original.jpg',
 	color: '#34c0de',
-	userType: 'Hospital'
+	userType: 'Hospital',
+	rolUser: 'supervisor'
 
+};
+
+var navBarDataUser = {
+	linkArray: [{
+		route: "/Hospital/viewpending",
+		name: "Pendientes"
+	}, {
+		route: "/Hospital/viewaccepted",
+		name: "Aceptados"
+
+	}, {
+		route: "/Hospital/viewrejected",
+		name: "Rechazados"
+
+	}, {
+		route: "/Hospital/viewviewed",
+		name: "Vistos"
+
+	}],
+	logo: '/public/img/logo_original.jpg',
+	color: '#34c0de',
+	userType: 'Hospital',
+	rolUser: 'user'
 };
 
 function mapStateToProps(state) {
@@ -40464,7 +40508,8 @@ function mapStateToProps(state) {
 		isRequesting: state.authentication.isRequesting,
 		isLoggedIn: state.authentication.isLoggedIn,
 		username: state.authentication.userName,
-		userId: state.authentication.userId
+		userId: state.authentication.userId,
+		rol: state.authentication.rolUser
 	};
 }
 
@@ -40504,11 +40549,10 @@ var HospitalHome = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_GlobalNavbar2.default, { data: navBarData,
+				_react2.default.createElement(_GlobalNavbar2.default, { data: this.props.rol.toLowerCase() == 'supervisor' ? navBarDataSupervisor : navBarDataUser,
 					logOut: this.logOut,
 					username: this.props.username,
 					userId: this.props.userId
-
 				}),
 				this.props.children
 			);
@@ -40582,14 +40626,6 @@ var ViewAcceptedPatientRequest = function (_React$Component) {
 		_this.idInterval = null;
 		return _this;
 	}
-
-	// componentWillMount() {
-	// 	this.props.fetchGetPatientsByState('Aceptado');
-	// 	this.idInterval = setInterval(() => {
-	// 		this.props.fetchGetPatientsCheck(false);
-	// 		this.props.fetchGetPatientsByState('Aceptado');	
-	// 	},1000*10)
-	// }
 
 	_createClass(ViewAcceptedPatientRequest, [{
 		key: 'componentDidMount',
@@ -40725,8 +40761,8 @@ var ViewPatientRequest = function (_React$Component) {
     }
 
     _createClass(ViewPatientRequest, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             var _this2 = this;
 
             this.props.fetchGetPatients();
@@ -40946,8 +40982,8 @@ var ViewRejectedPatientRequest = function (_React$Component) {
 	}
 
 	_createClass(ViewRejectedPatientRequest, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			var _this2 = this;
 
 			this.props.fetchGetPatientsByState('Rechazado');
@@ -41082,8 +41118,8 @@ var ViewViewedPatientRequest = function (_React$Component) {
   }
 
   _createClass(ViewViewedPatientRequest, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       var _this2 = this;
 
       this.props.fetchReasonReject();
@@ -41742,7 +41778,8 @@ function authentication() {
     userId: null,
     userData: null,
     error: null,
-    institucionCode: null
+    institucionCode: null,
+    rolUser: null
   };
   var action = arguments[1];
 
@@ -41759,7 +41796,8 @@ function authentication() {
         userId: action.user.id,
         institucionCode: action.user.institucionCode,
         errorCheckLogin: false,
-        errorCredentials: false
+        errorCredentials: false,
+        rolUser: action.user.rol
       });
     case 'USER_FAILED_TO_LOG_IN':
       return Object.assign({}, state, {
@@ -41769,7 +41807,8 @@ function authentication() {
         userType: null,
         userId: null,
         userData: null,
-        errorCredentials: action.err
+        errorCredentials: action.err,
+        rolUser: null
       });
     case 'FAILED_CHECK_LOGIN':
       return Object.assign({}, state, {
@@ -41779,7 +41818,8 @@ function authentication() {
         userType: null,
         userId: null,
         userData: null,
-        errorCheckLogin: action.err
+        errorCheckLogin: action.err,
+        rolUser: null
       });
     case 'USER_IS_LOGGED_OUT_A':
       return Object.assign({}, state, {
@@ -41792,7 +41832,8 @@ function authentication() {
         userData: null,
         userId: null,
         error: null,
-        institucionCode: null
+        institucionCode: null,
+        rolUser: null
       });
     case 'FAILED_REQUEST':
       return Object.assign({}, state, {
